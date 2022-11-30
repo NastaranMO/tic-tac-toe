@@ -9,6 +9,7 @@ const getData = () => JSON.parse(window.localStorage.getItem('tic-tac-toe')) || 
 
 function App() {
   const [username, setUsername] = useState('');
+  const [room, setRoom] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
 
   const joinGame = (e) => {
@@ -18,8 +19,9 @@ function App() {
     socket.emit('join_game', username);
   };
 
-  const findMatch = () => {
-    socket.emit('find_match', username);
+  const newGame = (e) => {
+    e.preventDefault();
+    socket.emit('new_game', room);
   };
 
   useEffect(() => {
@@ -43,8 +45,13 @@ function App() {
               Hello
               {' '}
               {username}
+              {' '}
+              {room}
             </h2>
-            <button type="submit" onClick={findMatch}>Find a match</button>
+            <form onSubmit={newGame}>
+              <input type="text" placeholder="game id..." onChange={(e) => setRoom(e.target.value)} />
+              <button type="submit">New game</button>
+            </form>
           </>
         )
         : (
