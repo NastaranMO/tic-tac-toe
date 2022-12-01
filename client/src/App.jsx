@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import Game from './components/Game';
 
 const socket = io.connect('http://localhost:3001/');
 
@@ -9,8 +10,10 @@ const getData = () => JSON.parse(window.localStorage.getItem('tic-tac-toe')) || 
 
 function App() {
   const [username, setUsername] = useState('');
+  const [players, setPlayers] = useState([]);
   const [room, setRoom] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  const [isNewGame, setIsNewGame] = useState(false);
 
   const joinGame = (e) => {
     e.preventDefault();
@@ -19,9 +22,10 @@ function App() {
     socket.emit('join_game', username);
   };
 
-  const newGame = (e) => {
+  const newGameSubmitHandler = (e) => {
     e.preventDefault();
-    socket.emit('new_game', room);
+    socket.emit('new_game', { room, username });
+    setIsNewGame(true);
   };
 
   useEffect(() => {
@@ -33,7 +37,12 @@ function App() {
       console.log('emit message');
       socket.emit('join_game', userData.username);
     }
-  }, []);
+
+    socket.on('begin_game', (payload) => {
+      console.log('players==>', payload);
+      setPlayers(payload);
+    });
+  }, [socket]);
 
   return (
     <div className="App">
@@ -48,10 +57,12 @@ function App() {
               {' '}
               {room}
             </h2>
-            <form onSubmit={newGame}>
-              <input type="text" placeholder="game id..." onChange={(e) => setRoom(e.target.value)} />
-              <button type="submit">New game</button>
-            </form>
+            {!isNewGame && (
+              <form onSubmit={newGameSubmitHandler}>
+                <input type="text" placeholder="game id..." onChange={(e) => setRoom(e.target.value)} />
+                <button type="submit">New game</button>
+              </form>
+            )}
           </>
         )
         : (
@@ -68,6 +79,9 @@ function App() {
             <button type="submit">Enter</button>
           </form>
         )}
+
+      {isNewGame
+        && <Game players={players} />}
     </div>
   );
 }

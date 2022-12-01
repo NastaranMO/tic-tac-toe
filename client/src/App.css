@@ -1,3 +1,28 @@
+.board-game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.column {
+  border-top: none;
+  border-left: none;
+  border-right: 1px solid red;
+  border-bottom: 1px solid red;
+  padding: 20px;
+  font-size: 40px;
+  cursor: pointer;
+}
+.none-border-right {
+  border-right: none;
+}
+.none-border-bottom {
+  border-bottom: none;
+}
 .App {
   text-align: center;
 }
