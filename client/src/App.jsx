@@ -81,7 +81,7 @@ function App() {
         )}
 
       {isNewGame
-        && <Game players={players} />}
+        && <Game players={players} username={username} />}
     </div>
   );
 }
