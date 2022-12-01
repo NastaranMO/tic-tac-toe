@@ -50,7 +50,7 @@ function Game1({ players, socket, username }) {
       console.log('data move:', data)
       board[data.x][data.y] = data.symbol;
       setBoard((prev) => [...prev]);
-      if (checkWinner()) setIsFinish(true)
+      checkWinner()
       console.log('move===>', data)
 
     })
@@ -61,7 +61,6 @@ function Game1({ players, socket, username }) {
     })
 
     if (winner) {
-      setIsFinish(true)
       socket.emit('winner', { winner, room: '123' })
     }
   }, [socket, winner])
