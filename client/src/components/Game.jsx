@@ -6,8 +6,8 @@ function Game({ players, username }) {
   // eslint-disable-next-line no-unused-vars
   const [board, setBoard] = useState([
     ['0,0', '0,1', '0,2'],
-    ['', '', ''],
-    ['', '', ''],
+    ['1,0', '1,1', '1,2'],
+    ['2,0', '2,1', '2,2'],
   ]);
   const [player, setPlayer] = useState('');
 
@@ -54,14 +54,8 @@ function Game({ players, username }) {
             onClick={() => moveHandler(0, i)}
           >
             {b}
-            {i}
           </button>
         ))}
-
-        {/* <button className="column" type="submit" onClick={() => moveHandler(0, 0)}>E</button>
-        <button className="column" type="submit" onClick={() => moveHandler(0, 1)}>E</button>
-        <button className="column none-border-right" type="submit"
-         onClick={() => moveHandler(0, 2)}>E</button> */}
       </div>
       <div className="row">
         {board[1].map((b, i) => (
@@ -72,18 +66,20 @@ function Game({ players, username }) {
             onClick={() => moveHandler(1, i)}
           >
             {b}
-            {i}
           </button>
         ))}
-        {/* <button className="column" type="submit" onClick={() => moveHandler(1, 0)}>E</button>
-        <button className="column" type="submit" onClick={() => moveHandler(1, 1)}>E</button>
-        <button className="column none-border-right"
-         type="submit" onClick={() => moveHandler(1, 2)}>E</button> */}
       </div>
       <div className="row">
-        <button className="column none-border-bottom" type="submit" onClick={() => moveHandler(2, 0)}>E</button>
-        <button className="column none-border-bottom" type="submit" onClick={() => moveHandler(2, 1)}>E</button>
-        <button className="column none-border-bottom none-border-right" type="submit" onClick={() => moveHandler(2, 2)}>E</button>
+        {board[2].map((b, i) => (
+          <button
+            key={numbers[i]}
+            type="submit"
+            className={i === 2 ? 'column none-border-bottom none-border-right' : 'column none-border-bottom'}
+            onClick={() => moveHandler(1, i)}
+          >
+            {b}
+          </button>
+        ))}
       </div>
     </div>
   );
