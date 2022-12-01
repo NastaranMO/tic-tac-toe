@@ -10,7 +10,7 @@ const port = process.env.PORT
 const app = express()
 const server = http.createServer(app)
 
-const players = []
+let players = []
 
 const io = new Server(server, {
   cors: {
@@ -19,49 +19,36 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-  console.log(`User ${socket.id} connected`)
+  console.log(`User Connected: ${socket.id}`)
 
-  socket.on('join_game', (data) => {
-    console.log(`User with id ${socket.id} ${data} joined to the game`)
-  })
-
-  socket.on('new_game', (data) => {
-    console.log(`event new_game is clicked with id ${data.room}`)
-    console.log(`rooms ${io.sockets.adapter.rooms}`)
+  socket.on('join_room', (data) => {
     socket.join(data.room)
-    console.log(`User with id ${socket.id} joined to the room ${data.room}`)
+    console.log(`User with ID: ${socket.id} ${data.username} joined room: ${data.room}`)
+    players.push({
+      id: socket.id,
+      username: data.username,
+      room: data.room,
+      symbol: ''
+    })
 
-    const capacity = players.length
-    if (capacity === 0) {
-      players.push({
-        id: socket.id,
-        name: data.username,
-        symbol: 'X'
-      })
-
-      return
-    }
-
-    if (capacity === 1) {
-      players.push({
-        id: socket.id,
-        name: data.username,
-        symbol: 'O'
-      })
-    }
-
-    console.log(players.length)
-    if (players.length === 2) {
-      console.log('game is begining')
-      socket.emit('begin_game', players)
-    }
-    // const numOfClients = io.sockets.adapter.rooms.get(data).size
+    socket.emit('new_player_joined', players)
+    socket.to(data.room).emit('new_player_joined', players)
   })
 
-  // socket.on('begin_game', (data))
+  socket.on('move', (data) => {
+    console.log(data.room)
+    socket.to(data.room).emit('move_sent', data)
+  })
+
+  socket.on('winner', (data) => {
+    console.log(data.room)
+    console.log(`winner============> ${data.winner}`)
+    socket.to(data.room).emit('winner_sent', data.winner)
+  })
 
   socket.on('disconnect', () => {
-    console.log(`User ${socket.id} is disconnected`)
+    players = players.filter(p => p.id !== socket.id)
+    console.log('User Disconnected', socket.id)
   })
 })
 

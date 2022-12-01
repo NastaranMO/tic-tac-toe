@@ -1,41 +1,56 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-param-reassign */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Game({ players, username }) {
+function Game({
+  // eslint-disable-next-line no-unused-vars
+  socket, room, players, username,
+}) {
   // eslint-disable-next-line no-unused-vars
   const [board, setBoard] = useState([
     ['0,0', '0,1', '0,2'],
     ['1,0', '1,1', '1,2'],
     ['2,0', '2,1', '2,2'],
   ]);
-  const [player, setPlayer] = useState('');
+  console.log('players', players);
+  const player = players.find((p) => p.name === username);
 
-  const moveHandler = (x, y) => {
-    // console.log(x, y, board[0][0]);
-    const upadatedBoard = board;
-    const boardRow = upadatedBoard[x];
-    boardRow[y] = players.symbol;
-    setBoard(upadatedBoard);
-    // setBoard((prev) => {
-    //   prev[x][y] = 2;
-    // });
+  const moveHandler = async (x, y) => {
+    board[x][y] = player.symbol;
+    setBoard((prev) => [...prev]);
+    const moveData = {
+      player,
+      turn: true,
+      symbol: player.symbol,
+      x,
+      y,
+      room,
+    };
+    await socket.emit('move', moveData);
+
     console.log('board:', board);
   };
   const numbers = [1, 2, 3];
 
   useEffect(() => {
-    const currentPlayer = players.find((p) => p.name === username);
-    if (currentPlayer) setPlayer(currentPlayer);
-  });
+    // debugger;
+    // if (currentPlayer) {
+    //   console.log('currentplayer:', currentPlayer, username);
+    // }
+
+    socket.on('move-recieved', (data) => {
+      console.log(data);
+    });
+  }, [socket]);
   return (
     <div className="board-game-container">
       <h1>
         Game starts player
         {' '}
-        {player.name}
+        {player?.name}
       </h1>
-      {/* <ul>
+      <ul>
         {players.map((p) => (
           <li key={p.id}>
             {p.name}
@@ -43,7 +58,7 @@ function Game({ players, username }) {
             {p.symbol}
           </li>
         ))}
-      </ul> */}
+      </ul>
       <div className="row">
 
         {board[0].map((b, i) => (
@@ -88,6 +103,9 @@ function Game({ players, username }) {
 export default Game;
 
 Game.propTypes = {
+  // player: PropTypes.objectOf(PropTypes.shape).isRequired,
   players: PropTypes.arrayOf(PropTypes.shape).isRequired,
   username: PropTypes.string.isRequired,
+  socket: PropTypes.objectOf(PropTypes.shape).isRequired,
+  room: PropTypes.string.isRequired,
 };

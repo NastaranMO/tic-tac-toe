@@ -1,87 +1,58 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import Game from './components/Game';
+// eslint-disable-next-line no-unused-vars
+import Game1 from './components/Game1';
 
-const socket = io.connect('http://localhost:3001/');
-
-const storeData = (data) => window.localStorage.setItem('tic-tac-toe', JSON.stringify(data));
-const getData = () => JSON.parse(window.localStorage.getItem('tic-tac-toe')) || {};
+const socket = io.connect('http://localhost:3001');
 
 function App() {
   const [username, setUsername] = useState('');
+  const [room, setRoom] = useState('');
+  const [showGame, setShowGame] = useState(false);
   const [players, setPlayers] = useState([]);
-  const [room, setRoom] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
-  const [isNewGame, setIsNewGame] = useState(false);
 
-  const joinGame = (e) => {
-    e.preventDefault();
-    storeData({ username });
-    setIsLogin(true);
-    socket.emit('join_game', username);
+  const joinRoom = async () => {
+    if (username !== '' && room !== '') {
+      await socket.emit('join_room', { room, username });
+      setShowGame(true);
+      setPlayers((prev) => [...prev, username]);
+    }
   };
-
-  const newGameSubmitHandler = (e) => {
-    e.preventDefault();
-    socket.emit('new_game', { room, username });
-    setIsNewGame(true);
-  };
+  console.log(players)
 
   useEffect(() => {
-    const userData = getData();
-    const isEmpty = Object.keys(userData).length === 0;
-    if (!isEmpty) {
-      setUsername(userData.username);
-      setIsLogin(true);
-      console.log('emit message');
-      socket.emit('join_game', userData.username);
-    }
-
-    socket.on('begin_game', (payload) => {
-      console.log('players==>', payload);
-      setPlayers(payload);
+    socket.on('new_player_joined', (data) => {
+      console.log('data is coming', data);
+      console.log(data)
+      const updatedData = data.map((d, i) => i === 0 ? ({ ...d, symbol: 'X' }) : ({ ...d, symbol: 'O' }))
+      setPlayers(updatedData);
     });
   }, [socket]);
 
   return (
-    <div className="App">
-      <h1>Online Tictactoe</h1>
-      {isLogin
-        ? (
-          <>
-            <h2>
-              Hello
-              {' '}
-              {username}
-              {' '}
-              {room}
-            </h2>
-            {!isNewGame && (
-              <form onSubmit={newGameSubmitHandler}>
-                <input type="text" placeholder="game id..." onChange={(e) => setRoom(e.target.value)} />
-                <button type="submit">New game</button>
-              </form>
-            )}
-          </>
-        )
-        : (
-          <form onSubmit={joinGame}>
-            <label htmlFor="username">
-              Enter your name:
+    <div>
+      {
+        showGame
+          ? <Game1 players={players} socket={socket} username={username} />
+          : (
+            <form onSubmit={joinRoom}>
               <input
                 type="text"
-                id="username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
                 placeholder="John..."
-                onChange={(e) => setUsername(e.target.value)}
               />
-            </label>
-            <button type="submit">Enter</button>
-          </form>
-        )}
-
-      {isNewGame
-        && <Game players={players} username={username} />}
+              <input
+                type="text"
+                onChange={(e) => setRoom(e.target.value)}
+                placeholder="123..."
+              />
+              <button type="submit">Enter</button>
+            </form>
+          )
+      }
     </div>
   );
 }
