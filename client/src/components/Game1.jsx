@@ -41,6 +41,18 @@ function Game1({ players, socket, username }) {
         setIsFinish(true)
         return true
       }
+
+      if (board[0, 0] === board[1, 1] && board[1, 1] === board[2, 2] && board[2, 2] === board[0, 0]) {
+        setWinner(board[0][i])
+        setIsFinish(true)
+        return true
+      }
+
+      if (board[2, 0] === board[1, 1] && board[1, 1] === board[0, 2] && board[2, 2] === board[0, 2]) {
+        setWinner(board[0][i])
+        setIsFinish(true)
+        return true
+      }
     }
   }
 
