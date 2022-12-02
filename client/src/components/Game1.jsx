@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Profile } from './Profile';
+import checkWinner from '../winner'
 
 function Game1({ players, setPlayers, player, socket, username }) {
-  console.log('players from game:', players)
+  // console.log('players from game:', players)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
     ['0,0', '0,1', '0,2'],
@@ -10,7 +11,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
     ['2,0', '2,1', '2,2'],
   ]);
   const [winner, setWinner] = useState('')
-  const [isFinish, setIsFinish] = useState(false)
+  // const [isFinish, setIsFinish] = useState(false)
   const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
 
 
@@ -31,55 +32,28 @@ function Game1({ players, setPlayers, player, socket, username }) {
     console.log('board:', board);
   };
 
-  const checkWinner = () => {
-    for (let i = 0; i < 3; i++) {
-      if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][0] === board[i][2]) {
-        setWinner(board[i][0])
-        setIsFinish(true)
-        return true
-      }
-
-      if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[0][i] === board[2][i]) {
-        setWinner(board[0][i])
-        setIsFinish(true)
-        return true
-      }
-
-      if (board[0, 0] === board[1, 1] && board[1, 1] === board[2, 2] && board[2, 2] === board[0, 0]) {
-        setWinner(board[0][i])
-        setIsFinish(true)
-        return true
-      }
-
-      if (board[2, 0] === board[1, 1] && board[1, 1] === board[0, 2] && board[2, 2] === board[0, 2]) {
-        setWinner(board[0][i])
-        setIsFinish(true)
-        return true
-      }
-    }
-  }
-
   useEffect(() => {
-    socket.on('move_sent', (data) => {
-
-      console.log('data move:', data)
-      board[data.x][data.y] = data.symbol;
-      setBoard((prev) => [...prev]);
-      checkWinner()
-      console.log('move===>', data)
-
-    })
-
-    socket.on('winner_sent', (data) => {
-      setIsFinish(true)
-      console.log(data)
-    })
-
     socket.on('userLeft', (data) => {
       setPlayers(data);
       console.log('Your opponent left the game')
       setIsOpponentDisconnect(true)
     });
+
+    socket.on('move_sent', (data) => {
+
+      console.log('data move:', data)
+      board[data.x][data.y] = data.symbol;
+      setBoard((prev) => [...prev]);
+      checkWinner(board, setWinner)
+      console.log('move===>', data)
+
+    })
+
+    socket.on('winner_sent', (data) => {
+      // setIsFinish(true)
+      console.log(data)
+    })
+
 
     if (winner) {
       socket.emit('winner', { winner, room: '123' })
@@ -94,7 +68,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
       }
       {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)}
       <div className="row">
-        {isFinish && <div>Akhjooooooooon</div>}
+        {winner && <div>Akhjooooooooon</div>}
 
         {board[0].map((b, i) => (
           <button
