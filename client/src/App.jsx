@@ -13,9 +13,9 @@ function App() {
 
   const [showGame, setShowGame] = useState(false);
 
-  const joinGameSubmitHandler = async () => {
+  const joinGameSubmitHandler = () => {
     if (username !== '' && room !== '') {
-      await socket.emit('join_game', { room, username });
+      socket.emit('join_game', { room, username });
       setShowGame(true);
       setPlayers((prev) => [...prev, username]);
     }
