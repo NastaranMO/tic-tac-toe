@@ -21,7 +21,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
     setBoard((prev) => [...prev]);
     const moveData = {
       ...player,
-      turn: true,
+      turn: false,
       symbol: player.symbol,
       x,
       y,
@@ -31,6 +31,8 @@ function Game1({ players, setPlayers, player, socket, username }) {
     if (checkWinner(board, setWinner)) {
       setWinner(player.symbol)
     }
+
+    setIsTurn(prev => !prev)
 
     console.log('board:', board);
   };
@@ -47,6 +49,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
       console.log('data move:', data)
       board[data.x][data.y] = data.symbol;
       setBoard((prev) => [...prev]);
+      setIsTurn(!data.turn)
       checkWinner(board, setWinner)
       console.log('move===>', data)
 
@@ -79,9 +82,9 @@ function Game1({ players, setPlayers, player, socket, username }) {
               type="submit"
               className={i === 2 ? 'column none-border-right' : 'column'}
               onClick={() => moveHandler(0, i)}
-              disabled={isTurn}
+              disabled={!isTurn}
             >
-              {b}{isTurn ? 'true' : 'false'}
+              {b}
             </button>
           ))}
         </div>
@@ -92,6 +95,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
               type="submit"
               className={i === 2 ? 'column none-border-right' : 'column'}
               onClick={() => moveHandler(1, i)}
+              disabled={!isTurn}
             >
               {b}
             </button>
@@ -104,6 +108,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
               type="submit"
               className={i === 2 ? 'column none-border-bottom none-border-right' : 'column none-border-bottom'}
               onClick={() => moveHandler(2, i)}
+              disabled={!isTurn}
             >
               {b}
             </button>
