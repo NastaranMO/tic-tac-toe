@@ -6,9 +6,9 @@ function Game1({ players, setPlayers, player, socket, username }) {
   console.log('player from game===>', player)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
-    ['0,0', '0,1', '0,2'],
-    ['1,0', '1,1', '1,2'],
-    ['2,0', '2,1', '2,2'],
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
   ]);
   const [winner, setWinner] = useState('')
   const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
@@ -16,25 +16,28 @@ function Game1({ players, setPlayers, player, socket, username }) {
 
 
   const moveHandler = async (x, y) => {
-    const player = players.find(p => p.username === username)
-    board[x][y] = player.symbol;
-    setBoard((prev) => [...prev]);
-    const moveData = {
-      ...player,
-      turn: false,
-      symbol: player.symbol,
-      x,
-      y,
-      room: player.room,
-    };
-    socket.emit('move', moveData);
-    if (checkWinner(board, setWinner)) {
-      setWinner(player.symbol)
+    if (!board[x][y]) {
+      console.log('yes')
+      const player = players.find(p => p.username === username)
+      board[x][y] = player.symbol;
+      setBoard((prev) => [...prev]);
+      const moveData = {
+        ...player,
+        turn: false,
+        symbol: player.symbol,
+        x,
+        y,
+        room: player.room,
+      };
+      socket.emit('move', moveData);
+      if (checkWinner(board, setWinner)) {
+        setWinner(player.symbol)
+      }
+
+      setIsTurn(prev => !prev)
+
+      console.log('board:', board);
     }
-
-    setIsTurn(prev => !prev)
-
-    console.log('board:', board);
   };
 
   useEffect(() => {
@@ -61,6 +64,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
 
 
     if (winner) {
+      setIsTurn(false)
       socket.emit('winner', { winner, room: '123' })
     }
   }, [socket, winner])
