@@ -31,9 +31,9 @@ function App() {
       setPlayers(data);
     });
 
-    socket.on('disconnect-received', (data) => {
-      console.log('user is disconnectd', data)
+    socket.on('disconnect_recieved', (data) => {
       setPlayers(data);
+      console.log('Your opponent left the game')
       setIsOpponentDisconnect(true)
     });
   }, [socket]);
@@ -46,7 +46,7 @@ function App() {
           : <Form addPlayers={addPlayers} socket={socket} setPlayer={setPlayer} />
       }
       {
-        isOpponentDisconnect && <div>nobody is here...</div>
+        isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
       }
     </div>
   );

@@ -63,15 +63,20 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    let room
+    const disconnectPlayer = players.find(p => p.id === socket.id)
+    const room = disconnectPlayer?.room
+
     players = players.filter(p => {
-      if (p.id === socket.id) room = p.room
       return p.id !== socket.id
     })
+    // console.log('players from disconnect', players)
 
     if (room) {
-      io.in(room).emit('disconnect_recieved', players)
+      // console.log('room from server', room)
+      socket.to(room).emit('disconnect_recieved', players)
     }
+
+    // socket.emit('disconnect_recieved', 'hello')
 
     console.log('User Disconnected', socket.id)
   })
