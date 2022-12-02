@@ -14,7 +14,7 @@ function App() {
 
   const joinRoom = async () => {
     if (username !== '' && room !== '') {
-      await socket.emit('join_room', { room, username });
+      await socket.emit('join_game', { room, username });
       setShowGame(true);
       setPlayers((prev) => [...prev, username]);
     }
@@ -24,9 +24,7 @@ function App() {
   useEffect(() => {
     socket.on('new_player_joined', (data) => {
       console.log('data is coming', data);
-      console.log(data)
-      const updatedData = data.map((d, i) => i === 0 ? ({ ...d, symbol: 'X' }) : ({ ...d, symbol: 'O' }))
-      setPlayers(updatedData);
+      setPlayers(data);
     });
   }, [socket]);
 

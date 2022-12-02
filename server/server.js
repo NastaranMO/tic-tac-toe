@@ -21,14 +21,14 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
 
-  socket.on('join_room', (data) => {
+  socket.on('join_game', (data) => {
     socket.join(data.room)
     console.log(`User with ID: ${socket.id} ${data.username} joined room: ${data.room}`)
     players.push({
       id: socket.id,
       username: data.username,
       room: data.room,
-      symbol: ''
+      symbol: players.length === 0 ? 'X' : 'O'
     })
 
     socket.emit('new_player_joined', players)
@@ -52,4 +52,7 @@ io.on('connection', (socket) => {
   })
 })
 
+app.get('/game', (req, res) => {
+  res.send('hello')
+})
 server.listen(port, () => console.log(`Listen on port ${port}`))
