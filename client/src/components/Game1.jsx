@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function Game1({ players, socket, username }) {
-  console.log('players:', players)
+  console.log('players from game:', players, username)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
     ['0,0', '0,1', '0,2'],

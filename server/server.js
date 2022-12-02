@@ -63,7 +63,16 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
-    players = players.filter(p => p.id !== socket.id)
+    let room
+    players = players.filter(p => {
+      if (p.id === socket.id) room = p.room
+      return p.id !== socket.id
+    })
+
+    if (room) {
+      io.in(room).emit('disconnect_recieved', players)
+    }
+
     console.log('User Disconnected', socket.id)
   })
 })
