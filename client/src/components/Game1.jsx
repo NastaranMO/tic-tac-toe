@@ -11,7 +11,6 @@ function Game1({ players, setPlayers, player, socket, username }) {
     ['2,0', '2,1', '2,2'],
   ]);
   const [winner, setWinner] = useState('')
-  // const [isFinish, setIsFinish] = useState(false)
   const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
 
 
@@ -28,6 +27,9 @@ function Game1({ players, setPlayers, player, socket, username }) {
       room: player.room,
     };
     socket.emit('move', moveData);
+    if (checkWinner(board, setWinner)) {
+      setWinner(player.symbol)
+    }
 
     console.log('board:', board);
   };
@@ -50,7 +52,6 @@ function Game1({ players, setPlayers, player, socket, username }) {
     })
 
     socket.on('winner_sent', (data) => {
-      // setIsFinish(true)
       console.log(data)
     })
 
