@@ -14,7 +14,7 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [showGame, setShowGame] = useState(false);
   const [isGameBegin, setIsGameBegin] = useState(false)
-  const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
+  // const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
 
   const addPlayers = (data) => {
     setPlayers(data);
@@ -31,23 +31,16 @@ function App() {
       setPlayers(data);
     });
 
-    socket.on('userLeft', (data) => {
-      setPlayers(data);
-      console.log('Your opponent left the game')
-      setIsOpponentDisconnect(true)
-    });
   }, [socket]);
 
   return (
     <div>
       {
         showGame
-          ? <Game1 players={players} socket={socket} username={player.username} />
+          ? <Game1 players={players} setPlayers={setPlayers} player={player} socket={socket} username={player.username} />
           : <Form addPlayers={addPlayers} socket={socket} setPlayer={setPlayer} />
       }
-      {
-        isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
-      }
+
     </div>
   );
 }

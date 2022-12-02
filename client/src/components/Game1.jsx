@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Profile } from './Profile';
 
-function Game1({ players, socket, username }) {
-  console.log('players from game:', players, username)
+function Game1({ players, setPlayers, player, socket, username }) {
+  console.log('players from game:', players)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
     ['0,0', '0,1', '0,2'],
@@ -10,6 +11,8 @@ function Game1({ players, socket, username }) {
   ]);
   const [winner, setWinner] = useState('')
   const [isFinish, setIsFinish] = useState(false)
+  const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
+
 
   const moveHandler = async (x, y) => {
     const player = players.find(p => p.username === username)
@@ -72,6 +75,12 @@ function Game1({ players, socket, username }) {
       console.log(data)
     })
 
+    socket.on('userLeft', (data) => {
+      setPlayers(data);
+      console.log('Your opponent left the game')
+      setIsOpponentDisconnect(true)
+    });
+
     if (winner) {
       socket.emit('winner', { winner, room: '123' })
     }
@@ -80,6 +89,10 @@ function Game1({ players, socket, username }) {
 
   return (
     <div>
+      {
+        isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
+      }
+      {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)}
       <div className="row">
         {isFinish && <div>Akhjooooooooon</div>}
 

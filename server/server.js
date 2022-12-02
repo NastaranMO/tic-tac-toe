@@ -71,7 +71,6 @@ io.on('connection', (socket) => {
     })
 
     if (room) {
-      // console.log('room from server', room)
       socket.to(room).emit('userLeft', players)
     }
 
@@ -80,11 +79,6 @@ io.on('connection', (socket) => {
 })
 
 app.get('/game', (req, res) => {
-  // if (isGameBegin()) {
-  //   res.json({ data: players })
-  //   return
-  // }
-
   res.json(players)
 })
 server.listen(port, () => console.log(`Listen on port ${port}`))
