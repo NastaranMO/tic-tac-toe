@@ -3,6 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 60%;
+  padding: 10px;
+  background-color: red;
 }
 .row {
   display: flex;
@@ -17,6 +20,7 @@
   font-size: 40px;
   cursor: pointer;
 }
+
 .none-border-right {
   border-right: none;
 }

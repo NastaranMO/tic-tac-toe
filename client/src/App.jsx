@@ -18,6 +18,8 @@ function App() {
 
   const addPlayers = (data) => {
     setPlayers(data);
+    const currentPlayer = data.find(p => p.username === player.username)
+    if (currentPlayer) setPlayer(currentPlayer)
     if (checkIsGameBegin(data)) setIsGameBegin(true);
 
     setShowGame(true);
@@ -29,6 +31,8 @@ function App() {
     socket.on('new_player_joined', (data) => {
       console.log('data is coming', data);
       setPlayers(data);
+      const currentPlayer = data.find(p => p.username === player.username)
+      if (currentPlayer) setPlayer(currentPlayer)
     });
 
   }, [socket]);

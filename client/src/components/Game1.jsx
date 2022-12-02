@@ -3,7 +3,7 @@ import { Profile } from './Profile';
 import checkWinner from '../winner'
 
 function Game1({ players, setPlayers, player, socket, username }) {
-  // console.log('players from game:', players)
+  console.log('player from game===>', player)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
     ['0,0', '0,1', '0,2'],
@@ -12,6 +12,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
   ]);
   const [winner, setWinner] = useState('')
   const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
+  const [isTurn, setIsTurn] = useState(player.turn)
 
 
   const moveHandler = async (x, y) => {
@@ -68,43 +69,46 @@ function Game1({ players, setPlayers, player, socket, username }) {
         isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
       }
       {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)}
-      <div className="row">
-        {winner && <div>Akhjooooooooon</div>}
+      <div className='board-game-container'>
+        <div className="row">
+          {winner && <div>Akhjooooooooon</div>}
 
-        {board[0].map((b, i) => (
-          <button
-            key={numbers[i]}
-            type="submit"
-            className={i === 2 ? 'column none-border-right' : 'column'}
-            onClick={() => moveHandler(0, i)}
-          >
-            {b}
-          </button>
-        ))}
-      </div>
-      <div className="row">
-        {board[1].map((b, i) => (
-          <button
-            key={numbers[i]}
-            type="submit"
-            className={i === 2 ? 'column none-border-right' : 'column'}
-            onClick={() => moveHandler(1, i)}
-          >
-            {b}
-          </button>
-        ))}
-      </div>
-      <div className="row">
-        {board[2].map((b, i) => (
-          <button
-            key={numbers[i]}
-            type="submit"
-            className={i === 2 ? 'column none-border-bottom none-border-right' : 'column none-border-bottom'}
-            onClick={() => moveHandler(2, i)}
-          >
-            {b}
-          </button>
-        ))}
+          {board[0].map((b, i) => (
+            <button
+              key={numbers[i]}
+              type="submit"
+              className={i === 2 ? 'column none-border-right' : 'column'}
+              onClick={() => moveHandler(0, i)}
+              disabled={isTurn}
+            >
+              {b}{isTurn ? 'true' : 'false'}
+            </button>
+          ))}
+        </div>
+        <div className="row">
+          {board[1].map((b, i) => (
+            <button
+              key={numbers[i]}
+              type="submit"
+              className={i === 2 ? 'column none-border-right' : 'column'}
+              onClick={() => moveHandler(1, i)}
+            >
+              {b}
+            </button>
+          ))}
+        </div>
+        <div className="row">
+          {board[2].map((b, i) => (
+            <button
+              key={numbers[i]}
+              type="submit"
+              className={i === 2 ? 'column none-border-bottom none-border-right' : 'column none-border-bottom'}
+              onClick={() => moveHandler(2, i)}
+            >
+              {b}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
