@@ -31,7 +31,7 @@ function App() {
       setPlayers(data);
     });
 
-    socket.on('disconnect_recieved', (data) => {
+    socket.on('userLeft', (data) => {
       setPlayers(data);
       console.log('Your opponent left the game')
       setIsOpponentDisconnect(true)
