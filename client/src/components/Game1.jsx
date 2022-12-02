@@ -6,9 +6,9 @@ function Game1({ players, setPlayers, player, socket, username }) {
   console.log('player from game===>', player)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
-    ['0,0', '0,1', '0,2'],
-    ['1,0', '1,1', '1,2'],
-    ['2,0', '2,1', '2,2'],
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
   ]);
   const [winner, setWinner] = useState('')
   const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
