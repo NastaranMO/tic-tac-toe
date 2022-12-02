@@ -18,18 +18,31 @@ const io = new Server(server, {
   }
 })
 
+const createPlayer = (socket, data) => {
+  const { username, room } = data
+  const isFirst = players.length === 0
+
+  const newPlayer = {
+    id: socket.id,
+    username,
+    symbol: isFirst ? 'X' : 'O',
+    turn: isFirst,
+    room
+  }
+  return newPlayer
+}
+
+const isGameBegin = () => players.length === 2
+
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
 
   socket.on('join_game', (data) => {
     socket.join(data.room)
     console.log(`User with ID: ${socket.id} ${data.username} joined room: ${data.room}`)
-    players.push({
-      id: socket.id,
-      username: data.username,
-      room: data.room,
-      symbol: players.length === 0 ? 'X' : 'O'
-    })
+
+    const newPlayer = createPlayer(socket, data)
+    players.push(newPlayer)
 
     socket.emit('new_player_joined', players)
     socket.to(data.room).emit('new_player_joined', players)
@@ -53,6 +66,11 @@ io.on('connection', (socket) => {
 })
 
 app.get('/game', (req, res) => {
-  res.send('hello')
+  if (isGameBegin()) {
+    res.json({ data: players })
+    return
+  }
+
+  res.json({ data: null })
 })
 server.listen(port, () => console.log(`Listen on port ${port}`))
