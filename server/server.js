@@ -2,12 +2,15 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import http from 'http'
 import { Server } from 'socket.io'
+import cors from 'cors'
 // import { v4 as uuid } from 'uuid'
 
 dotenv.config()
 const port = process.env.PORT
 
 const app = express()
+
+app.use(cors())
 const server = http.createServer(app)
 
 let players = []
@@ -32,7 +35,7 @@ const createPlayer = (socket, data) => {
   return newPlayer
 }
 
-const isGameBegin = () => players.length === 2
+// const isGameBegin = () => players.length === 2
 
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
@@ -66,11 +69,11 @@ io.on('connection', (socket) => {
 })
 
 app.get('/game', (req, res) => {
-  if (isGameBegin()) {
-    res.json({ data: players })
-    return
-  }
+  // if (isGameBegin()) {
+  //   res.json({ data: players })
+  //   return
+  // }
 
-  res.json({ data: null })
+  res.json(players)
 })
 server.listen(port, () => console.log(`Listen on port ${port}`))
