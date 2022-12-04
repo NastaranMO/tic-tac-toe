@@ -30,6 +30,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
     socket.emit('move', moveData);
     if (checkWinner(board, setWinner)) {
       setWinner(player.symbol)
+      setIsTurn(false)
     }
 
     setIsTurn(prev => !prev)
@@ -61,6 +62,7 @@ function Game1({ players, setPlayers, player, socket, username }) {
 
 
     if (winner) {
+      setIsTurn(false)
       socket.emit('winner', { winner, room: '123' })
     }
   }, [socket, winner])

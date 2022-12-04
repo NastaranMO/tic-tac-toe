@@ -30,6 +30,7 @@ function App() {
   useEffect(() => {
     socket.on('new_player_joined', (data) => {
       console.log('data is coming', data);
+      // const rightPlayes = data.filter(p => p.room === player.room)
       setPlayers(data);
       const currentPlayer = data.find(p => p.username === player.username)
       if (currentPlayer) setPlayer(currentPlayer)

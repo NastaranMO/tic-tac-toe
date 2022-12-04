@@ -11,7 +11,9 @@ function Form({ addPlayers, socket, setPlayer }) {
     if (username !== '' && room !== '') {
       socket.emit('join_game', { room, username });
       const { data } = await axios.get('http://localhost:3001/game');
+      // const rightPlayers = data.filter(p => p.room === room)
       addPlayers(data)
+      setPlayer(prev => ({ ...prev, room }))
     }
   };
 
