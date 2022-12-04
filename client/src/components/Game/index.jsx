@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Profile } from './Profile';
-import checkWinner from '../winner'
+import { Profile } from '../Profile';
+import checkWinner from '../../winner'
 
 function Game1({ players, setPlayers, player, socket, username }) {
   console.log('player from game===>', player)

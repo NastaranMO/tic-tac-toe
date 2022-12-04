@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Form from './components/Form';
 import { io } from 'socket.io-client';
 // eslint-disable-next-line no-unused-vars
-import Game1 from './components/Game1';
+import Game1 from './components/Game';
 
 const socket = io.connect('http://localhost:3001');
 
