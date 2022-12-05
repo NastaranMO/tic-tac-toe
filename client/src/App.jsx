@@ -24,11 +24,20 @@ function App() {
   const [isGameBegin, setIsGameBegin] = useState(false)
   // const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
 
+  // const addPlayers = (data) => {
+  //   setPlayers(data);
+  //   const currentPlayer = data.find(p => p.username === player.username)
+  //   if (currentPlayer) setPlayer(currentPlayer)
+  //   if (checkIsGameBegin(data)) setIsGameBegin(true);
+
+  //   setShowGame(true);
+  // }
+
   const addPlayers = (data) => {
-    setPlayers(data);
-    const currentPlayer = data.find(p => p.username === player.username)
+    // setPlayers(data);
+    const currentPlayer = data.players?.find(p => p.username === player.username)
     if (currentPlayer) setPlayer(currentPlayer)
-    if (checkIsGameBegin(data)) setIsGameBegin(true);
+    if (checkIsGameBegin(data.players)) setIsGameBegin(true);
 
     setShowGame(true);
   }
@@ -57,6 +66,7 @@ function App() {
             socket={socket}
             username={player.username}
             isGameBegin={isGameBegin}
+            addPlayers={addPlayers}
 
           />
           :

@@ -2,19 +2,14 @@ import React, { useState, useEffect } from 'react'
 import MainPage from '../MainPage'
 import Game from '../Game'
 
-const Board = ({ isGameBegin, socket, username, player, setPlayer }) => {
+const Board = ({ isGameBegin, socket, username, player, setPlayer, addPlayers }) => {
   const [players, setPlayers] = useState([]);
-  // console.log('players:', players)
-  // const joinRoomOnSubmitHandler = (e) => {
-  //   e.preventDefault();
 
-  // }
   useEffect(() => {
     socket.on('new_player_connected', (data) => {
       console.log('data is coming', data);
       setPlayers(data);
-      const currentPlayer = data.players?.find(p => p.username === player.username)
-      if (currentPlayer) setPlayer(currentPlayer)
+      addPlayers(data)
     });
 
   }, [socket]);
