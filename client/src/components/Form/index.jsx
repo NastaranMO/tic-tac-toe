@@ -21,7 +21,6 @@ function Form({ addPlayers, socket, setPlayer }) {
 
   return (
     <div className='form-container'>
-      <Header />
       <form onSubmit={joinGameSubmitHandler} className="form">
         <label htmlFor='name' className='form__label'>Name</label>
         <input

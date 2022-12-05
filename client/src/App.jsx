@@ -4,10 +4,15 @@ import Form from './components/Form';
 import { io } from 'socket.io-client';
 // eslint-disable-next-line no-unused-vars
 import Game1 from './components/Game';
+import Login from './components/Login';
 
 const socket = io.connect('http://localhost:3001');
 
 const checkIsGameBegin = (players) => players.length === 2
+const getData = () => JSON.parse(localStorage.getItem('tic-tac-toe')) || '';
+const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
+
+
 
 function App() {
   const [player, setPlayer] = useState('');
@@ -28,6 +33,11 @@ function App() {
   console.log('players from App.js===>', players)
 
   useEffect(() => {
+    const data = getData()
+    if (data) {
+      console.log('data', data)
+      setShowGame(true)
+    }
     socket.on('new_player_joined', (data) => {
       console.log('data is coming', data);
       // const rightPlayes = data.filter(p => p.room === player.room)
@@ -44,7 +54,7 @@ function App() {
         showGame
           ? <Game1 players={players} setPlayers={setPlayers} player={player} socket={socket} username={player.username} />
           :
-          <Form addPlayers={addPlayers} socket={socket} setPlayer={setPlayer} />
+          <Login setPlayer={setPlayer} store={store} setShowGame={setShowGame} />
       }
 
     </main>
@@ -52,3 +62,4 @@ function App() {
 }
 
 export default App;
+{/* <Form addPlayers={addPlayers} socket={socket} setPlayer={setPlayer} /> */ }
