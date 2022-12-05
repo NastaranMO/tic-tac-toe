@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Profile } from '../Profile';
 import checkWinner from '../../winner'
 
-function Game1({ players, setPlayers, player, socket, username }) {
-  console.log('player from game===>', player)
+function Game({ players, setPlayers, player, socket, username }) {
+  console.log('players from game===>', players)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
     ['', '', ''],
@@ -121,4 +121,4 @@ function Game1({ players, setPlayers, player, socket, username }) {
   );
 }
 
-export default Game1;
+export default Game;

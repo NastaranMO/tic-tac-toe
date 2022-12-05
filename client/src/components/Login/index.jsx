@@ -6,18 +6,17 @@ import { useEffect } from 'react';
 
 
 
-const Login = ({ setPlayer, store, setShowGame }) => {
+const Login = ({ setPlayer, store, setShowGame, getData }) => {
   const [username, setUsername] = useState('')
 
   const loginSubmitHandler = (e) => {
     e.preventDefault();
-    store({ username });
+    store({ username, win: 0, lost: 0, draw: 0 });
     setShowGame(true)
   }
 
   return (
     <div className='form-container'>
-      <Header />
       <form className='form' onSubmit={loginSubmitHandler}>
         <label htmlFor='name' className='form__label'>Name</label>
         <input
