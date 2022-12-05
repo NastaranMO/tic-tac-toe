@@ -14,7 +14,7 @@ const app = express()
 app.use(cors())
 const server = http.createServer(app)
 
-let players = []
+let clients = []
 
 const io = new Server(server, {
   cors: {
@@ -22,18 +22,57 @@ const io = new Server(server, {
   }
 })
 
+// const createPlayer = (socket, data) => {
+//   const { username } = data
+//   const isFirst = players.length === 0
+
+//   const newPlayer = {
+//     id: socket.id,
+//     username,
+//     symbol: isFirst ? 'X' : 'O',
+//     turn: isFirst,
+//     room
+//   }
+//   return newPlayer
+// }
+
+const checkRooms = () => {
+  const client = clients.find(p => p.players?.length < 2)
+  if (client) {
+    const { room: emptyRoom } = client
+    return emptyRoom
+  }
+}
+
 const createPlayer = (socket, data) => {
-  const { username, room } = data
-  const isFirst = players.length === 0
+  const potentialRoom = checkRooms()
+  let room
+  if (potentialRoom) {
+    room = potentialRoom
+    const client = clients.find(c => c.room === potentialRoom)
+    const isFirst = client.players.length === 0
+
+    const newPlayer = {
+      id: socket.id,
+      username: data.username,
+      symbol: isFirst ? 'X' : 'O',
+      turn: isFirst,
+      room
+    }
+    return [newPlayer, room]
+  }
+
+  room = v4()
+  clients.push({ room, players: [] })
 
   const newPlayer = {
     id: socket.id,
-    username,
-    symbol: isFirst ? 'X' : 'O',
-    turn: isFirst,
+    username: data.username,
+    symbol: 'X',
+    turn: true,
     room
   }
-  return newPlayer
+  return [newPlayer, room]
 }
 
 // const isGameBegin = () => players.length === 2
@@ -42,51 +81,66 @@ io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
 
   socket.on('connect-game', (data) => {
-    console.log('connect to game :', data)
-    const newPlayer = createPlayer(socket, data)
-    players.push({ room: v4(), players: [{ ...newPlayer, ...data }] })
-    console.log('players connect game is', players)
+    // console.log('connect to game :', data)
+    const [newPlayer, room] = createPlayer(socket, data)
+    const client = clients.find(c => c.room === room)
+    client.players.push(newPlayer)
+    socket.join(room)
+
+    console.log('clients connect game is', clients)
+    // console.log('client => connect game is', client)
+
+    socket.to(room).emit('new_player_connected', client)
   })
 
-  socket.on('join_game', (data) => {
-    socket.join(data.room)
-    console.log(`User with ID: ${socket.id} ${data.username} joined room: ${data.room}`)
+  // socket.on('join_game', (data) => {
+  //   socket.join(data.room)
+  //   console.log(`User with ID: ${socket.id} ${data.username} joined room: ${data.room}`)
 
-    const newPlayer = createPlayer(socket, data)
-    players.push(newPlayer)
+  //   const newPlayer = createPlayer(socket, data)
+  //   clients.push(newPlayer)
 
-    socket.emit('new_player_joined', players)
-    socket.to(data.room).emit('new_player_joined', players)
-  })
+  //   socket.emit('new_player_joined', clients)
+  //   socket.to(data.room).emit('new_player_joined', clients)
+  // })
 
-  socket.on('move', (data) => {
-    console.log(data.room)
-    socket.to(data.room).emit('move_sent', data)
-  })
+  // socket.on('move', (data) => {
+  //   console.log(data.room)
+  //   socket.to(data.room).emit('move_sent', data)
+  // })
 
-  socket.on('winner', (data) => {
-    console.log(data.room)
-    console.log(`winner============> ${data.winner}`)
-    socket.to(data.room).emit('winner_sent', data.winner)
-  })
+  // socket.on('winner', (data) => {
+  //   console.log(data.room)
+  //   console.log(`winner============> ${data.winner}`)
+  //   socket.to(data.room).emit('winner_sent', data.winner)
+  // })
 
   socket.on('disconnect', () => {
-    const disconnectPlayer = players.find(p => p.id === socket.id)
-    const room = disconnectPlayer?.room
-
-    players = players.filter(p => {
-      return p.id !== socket.id
-    })
-
+    const disconnectClient = clients.find(c => c.players.find(p => p.id === socket.id))
+    const room = disconnectClient?.room
+    console.log('disconnetct room', room)
     if (room) {
-      socket.to(room).emit('userLeft', players)
+      // clients = clients.filter(p => {
+      //   return p.id !== socket.id
+      // })
+
+      const client = clients.find(c => c.room === room)
+      const updatedPlayers = client.players.filter(p => p.id !== socket.id) || []
+      clients = clients.map(c => c.room === room ? ({ ...c, players: updatedPlayers }) : c)
     }
 
+    // if (room) {
+    //   socket.to(room).emit('userLeft', clients)
+    // }
+    console.log('clients disconnected', clients)
     console.log('User Disconnected', socket.id)
   })
 })
 
-app.get('/game', (req, res) => {
-  res.json(players)
+app.get('/game/:username', (req, res) => {
+  const client = clients.find(c => c.players.find(p => p.username === req.params.username))
+  console.log('api=====>', client)
+  res.json(client)
 })
+
 server.listen(port, () => console.log(`Listen on port ${port}`))

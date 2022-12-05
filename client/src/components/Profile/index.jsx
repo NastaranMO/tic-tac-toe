@@ -2,12 +2,6 @@ import React from 'react'
 import './index.css'
 
 const Profile = ({ player }) => {
-  console.log('From profile compomnent', player)
-  const joinRoomOnSubmitHandler = (e) => {
-    e.preventDefault();
-
-  }
-
   return (
     <div className='profile'>
       <div className='profile__text'>

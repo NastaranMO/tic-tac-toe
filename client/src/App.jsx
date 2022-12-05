@@ -53,9 +53,11 @@ function App() {
           ?
           <Board
             player={player}
+            setPlayer={setPlayer}
             socket={socket}
             username={player.username}
             isGameBegin={isGameBegin}
+
           />
           :
           <Login setPlayer={setPlayer} store={store} getData={getData} setShowGame={setShowGame} />

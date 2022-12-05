@@ -2,30 +2,29 @@ import React, { useState, useEffect } from 'react'
 import MainPage from '../MainPage'
 import Game from '../Game'
 
-const Board = ({ isGameBegin, socket, username, player }) => {
-  const [players, setPlayers] = useState([player]);
+const Board = ({ isGameBegin, socket, username, player, setPlayer }) => {
+  const [players, setPlayers] = useState([]);
   // console.log('players:', players)
   // const joinRoomOnSubmitHandler = (e) => {
   //   e.preventDefault();
 
   // }
   useEffect(() => {
-    socket.on('new_player_joined', (data) => {
+    socket.on('new_player_connected', (data) => {
       console.log('data is coming', data);
       setPlayers(data);
-      const currentPlayer = data.find(p => p.username === player.username)
+      const currentPlayer = data.players?.find(p => p.username === player.username)
       if (currentPlayer) setPlayer(currentPlayer)
     });
 
   }, [socket]);
 
+  console.log('players from board==>', players)
+  console.log('player from board==>', player)
+
   return (
     <div>
-      {/* {players?.map((p, i) => <Profile key={i} player={p} isCurrentPlayer={true} />)} */}
-      <MainPage player={player} isCurrentPlayer={true} />
-      {/* <form onSubmit={joinRoomOnSubmitHandler}>
-        <button className='box-btn'>Find a match</button>
-      </form> */}
+      <MainPage player={player} isCurrentPlayer={true} setPlayers={setPlayers} setPlayer={setPlayer} />
       {isGameBegin
         &&
         <Game players={players} setPlayers={setPlayers} player={player} socket={socket} username={player.username} />
