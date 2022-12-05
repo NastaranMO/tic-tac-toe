@@ -1,14 +1,15 @@
-.profile-container {
+.box-container {
+  padding: 2em;
 }
 .profile {
   display: flex;
-  padding: 2em;
   gap: 0.5em;
 }
 
 .profile__text {
   /* background-color: green; */
   width: 65%;
+  text-transform: capitalize;
 }
 
 .profile__text h1 {
@@ -33,7 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 6px;
+  border-radius: 5px;
   color: white;
 }
 .profile-item--pink {
@@ -48,6 +49,19 @@
 }
 .profile-item--lose {
   background-color: rgb(175, 0, 131);
+}
+.box-btn {
+  margin-top: 3em;
+  align-self: flex-end;
+  margin-top: 0.2em;
+  background-image: linear-gradient(#e99d11, #fbc562);
+  border-radius: 5px;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7em;
+  font-size: 0.9em;
+  color: white;
+  font-weight: bold;
 }
 
 @media (min-width: 1000px) {

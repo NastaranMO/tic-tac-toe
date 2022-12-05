@@ -7,6 +7,7 @@ import Game from './components/Game';
 import Header from './components/Header';
 import Board from './components/Board';
 import Login from './components/Login';
+import axios from 'axios'
 
 const socket = io.connect('http://localhost:3001');
 
@@ -35,10 +36,11 @@ function App() {
   // console.log('players from App.js===>', players)
 
   useEffect(() => {
-    const data = getData()
-    if (data) {
-      setPlayer(data)
+    const playerData = getData()
+    if (playerData) {
+      setPlayer(playerData)
       setShowGame(true)
+      socket.emit('connect-game', playerData);
     }
 
   }, []);

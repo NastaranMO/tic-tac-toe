@@ -3,6 +3,7 @@ import express from 'express'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
+import { v4 } from 'uuid'
 // import { v4 as uuid } from 'uuid'
 
 dotenv.config()
@@ -39,6 +40,13 @@ const createPlayer = (socket, data) => {
 
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
+
+  socket.on('connect-game', (data) => {
+    console.log('connect to game :', data)
+    const newPlayer = createPlayer(socket, data)
+    players.push({ room: v4(), players: [{ ...newPlayer, ...data }] })
+    console.log('players connect game is', players)
+  })
 
   socket.on('join_game', (data) => {
     socket.join(data.room)

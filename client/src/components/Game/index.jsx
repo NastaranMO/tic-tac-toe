@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Profile } from '../Profile';
+// import { Profile } from '../Profile';
 import checkWinner from '../../winner'
 
 function Game({ players, setPlayers, player, socket, username }) {
@@ -73,7 +73,7 @@ function Game({ players, setPlayers, player, socket, username }) {
       {
         isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
       }
-      {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)}
+      {/* {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)} */}
       <div className='board-game-container'>
         <div className="row">
           {winner && <div>Akhjooooooooon</div>}

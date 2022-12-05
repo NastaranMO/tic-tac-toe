@@ -1,0 +1,20 @@
+.box-container {
+  padding: 2em;
+}
+
+.box-btn {
+  margin-top: 3em;
+  align-self: flex-end;
+  margin-top: 0.2em;
+  background-image: linear-gradient(#e99d11, #fbc562);
+  border-radius: 5px;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7em;
+  font-size: 0.9em;
+  color: white;
+  font-weight: bold;
+}
+
+@media (min-width: 1000px) {
+}
