@@ -3,12 +3,12 @@
 .profile {
   display: flex;
   padding: 2em;
-  gap: 1em;
+  gap: 0.5em;
 }
 
 .profile__text {
   /* background-color: green; */
-  width: 70%;
+  width: 65%;
 }
 
 .profile__text h1 {
@@ -28,7 +28,7 @@
 }
 .profile-item {
   margin: 0;
-  width: 45%;
+  width: 46%;
   height: 3.5em;
   display: flex;
   justify-content: center;
@@ -56,5 +56,6 @@
   }
   .profile-item {
     height: 4em;
+    width: 47%;
   }
 }

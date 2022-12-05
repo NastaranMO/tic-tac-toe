@@ -3,12 +3,14 @@ import './index.css'
 
 export const Profile = ({ player }) => {
   console.log('From profile compomnent', player)
-
+  const cleanText = (str) => {
+    return str[0].toUpperCase() + str.slice(1)
+  }
   return (
     // <div className='profile-container'>
     <div className='profile'>
       <div className='profile__text'>
-        <h1>Welcome, {player.username}!</h1>
+        <h1>Welcome, {cleanText(player.username)}!</h1>
         <p className='profile__text--paragraf'>This project designed and developed with Nodejs, Socket io and React.</p>
       </div>
       <div className='profile__boxItems'>

@@ -25,7 +25,7 @@ const Login = ({ setPlayer, store, setShowGame, getData }) => {
           className='form__input'
           onChange={(e) => {
             setUsername(e.target.value);
-            setPlayer({ username: e.target.value })
+            setPlayer({ username: e.target.value, win: 0, lost: 0, draw: 0 })
           }}
           placeholder="John..."
         />
