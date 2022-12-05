@@ -88,6 +88,7 @@ io.on('connection', (socket) => {
     socket.join(room)
 
     console.log('clients connect game is', clients)
+    clients.map(c => console.log('c', c))
     // console.log('client => connect game is', client)
 
     socket.to(room).emit('new_player_connected', client)
@@ -120,13 +121,7 @@ io.on('connection', (socket) => {
     const room = disconnectClient?.room
     console.log('disconnetct room', room)
     if (room) {
-      // clients = clients.filter(p => {
-      //   return p.id !== socket.id
-      // })
-
-      const client = clients.find(c => c.room === room)
-      const updatedPlayers = client.players.filter(p => p.id !== socket.id) || []
-      clients = clients.map(c => c.room === room ? ({ ...c, players: updatedPlayers }) : c)
+      clients = clients.filter(c => c.room !== room)
     }
 
     // if (room) {

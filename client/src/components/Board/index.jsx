@@ -8,7 +8,7 @@ const Board = ({ isGameBegin, socket, username, player, setPlayer, addPlayers })
   useEffect(() => {
     socket.on('new_player_connected', (data) => {
       console.log('data is coming', data);
-      setPlayers(data);
+      setPlayers(data.players);
       addPlayers(data)
     });
 
@@ -19,7 +19,7 @@ const Board = ({ isGameBegin, socket, username, player, setPlayer, addPlayers })
 
   return (
     <div>
-      <MainPage player={player} isCurrentPlayer={true} setPlayers={setPlayers} setPlayer={setPlayer} />
+      <MainPage player={player} addPlayers={addPlayers} isCurrentPlayer={true} setPlayers={setPlayers} setPlayer={setPlayer} />
       {isGameBegin
         &&
         <Game players={players} setPlayers={setPlayers} player={player} socket={socket} username={player.username} />

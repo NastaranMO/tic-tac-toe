@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import Form from './components/Form';
+
 import { io } from 'socket.io-client';
 // eslint-disable-next-line no-unused-vars
 import Game from './components/Game';
