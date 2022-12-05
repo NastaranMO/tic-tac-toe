@@ -39,14 +39,15 @@ function App() {
   }, [socket]);
 
   return (
-    <div>
+    <main>
       {
         showGame
           ? <Game1 players={players} setPlayers={setPlayers} player={player} socket={socket} username={player.username} />
-          : <Form addPlayers={addPlayers} socket={socket} setPlayer={setPlayer} />
+          :
+          <Form addPlayers={addPlayers} socket={socket} setPlayer={setPlayer} />
       }
 
-    </div>
+    </main>
   );
 }
 
