@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './index.css'
 import checkWinner from '../../winner'
 import Status from '../Status';
+import { ReactComponent as X } from '../../assests/icon-x.svg'
+import { ReactComponent as O } from '../../assests/icon-o.svg'
+import { ReactComponent as XOutline } from '../../assests/icon-x-outline.svg'
+import { ReactComponent as OOutline } from '../../assests/icon-o-outline.svg'
 
 const checkIsGameBegin = (players) => players.length === 2
 
@@ -66,15 +70,11 @@ function Game({ players, setPlayers, player, socket, username }) {
       socket.emit('winner', { winner, room: '123' })
     }
   }, [socket, winner])
-
+  console.log(isTurn)
 
   return (
     <div>
-      {
-        isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
-      }
       <Status players={players} isTurn={isTurn} />
-      {/* {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)} */}
       <div className='board-game-container'>
         <div className="row">
           {winner && <div>Akhjooooooooon</div>}
@@ -83,11 +83,12 @@ function Game({ players, setPlayers, player, socket, username }) {
             <button
               key={numbers[i]}
               type="submit"
-              className={i === 2 ? 'column none-border-right' : 'column'}
+              className='column'
               onClick={() => moveHandler(0, i)}
-              disabled={!isTurn}
+              disabled={(b !== '' || !isTurn) && true}
             >
-              {b}
+              {b === 'X' && <X />}
+              {b === 'O' && <O />}
             </button>
           ))}
         </div>
@@ -96,11 +97,12 @@ function Game({ players, setPlayers, player, socket, username }) {
             <button
               key={numbers[i]}
               type="submit"
-              className={i === 2 ? 'column none-border-right' : 'column'}
+              className='column'
               onClick={() => moveHandler(1, i)}
-              disabled={!isTurn}
+              disabled={(b !== '' || !isTurn) && true}
             >
-              {b}
+              {b === 'X' && <X />}
+              {b === 'O' && <O />}
             </button>
           ))}
         </div>
@@ -109,15 +111,19 @@ function Game({ players, setPlayers, player, socket, username }) {
             <button
               key={numbers[i]}
               type="submit"
-              className={i === 2 ? 'column none-border-bottom none-border-right' : 'column none-border-bottom'}
+              className='column'
               onClick={() => moveHandler(2, i)}
-              disabled={!isTurn}
+              disabled={(b !== '' || !isTurn) && true}
             >
-              {b}
+              {b === 'X' && <X />}
+              {b === 'O' && <O />}
             </button>
           ))}
         </div>
       </div>
+      {
+        isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
+      }
     </div>
   );
 }
