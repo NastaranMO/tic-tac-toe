@@ -18,7 +18,7 @@ const Login = ({ setPlayer, store, setShowGame, getData }) => {
   return (
     <div className='form-container'>
       <form className='form' onSubmit={loginSubmitHandler}>
-        <label htmlFor='name' className='form__label'>Name</label>
+        <label htmlFor='name' className='form__label'>Enter your name</label>
         <input
           type="text"
           id="name"

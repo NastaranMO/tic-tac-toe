@@ -39,11 +39,11 @@ function Game({ players, setPlayers, player, socket, username }) {
   };
 
   useEffect(() => {
-    socket.on('userLeft', (data) => {
-      setPlayers(data);
-      console.log('Your opponent left the game')
-      setIsOpponentDisconnect(true)
-    });
+    // socket.on('userLeft', (data) => {
+    //   // setPlayers(data);
+    //   console.log('Your opponent left the game')
+    //   setIsOpponentDisconnect(true)
+    // });
 
     socket.on('move_sent', (data) => {
 

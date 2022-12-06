@@ -64,10 +64,9 @@ function App() {
             player={player}
             setPlayer={setPlayer}
             socket={socket}
-            username={player.username}
             isGameBegin={isGameBegin}
+            setIsGameBegin={setIsGameBegin}
             addPlayers={addPlayers}
-
           />
           :
           <Login setPlayer={setPlayer} store={store} getData={getData} setShowGame={setShowGame} />

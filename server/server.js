@@ -87,7 +87,7 @@ io.on('connection', (socket) => {
     client.players.push(newPlayer)
     socket.join(room)
 
-    console.log('clients connect game is', clients)
+    // console.log('clients connect game is', clients)
     clients.map(c => console.log('c', c))
     // console.log('client => connect game is', client)
 
@@ -122,6 +122,7 @@ io.on('connection', (socket) => {
     console.log('disconnetct room', room)
     if (room) {
       clients = clients.filter(c => c.room !== room)
+      socket.to(room).emit('user_left', clients)
     }
 
     // if (room) {
