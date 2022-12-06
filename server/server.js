@@ -94,21 +94,12 @@ io.on('connection', (socket) => {
     socket.to(room).emit('new_player_connected', client)
   })
 
-  // socket.on('join_game', (data) => {
-  //   socket.join(data.room)
-  //   console.log(`User with ID: ${socket.id} ${data.username} joined room: ${data.room}`)
-
-  //   const newPlayer = createPlayer(socket, data)
-  //   clients.push(newPlayer)
-
-  //   socket.emit('new_player_joined', clients)
-  //   socket.to(data.room).emit('new_player_joined', clients)
-  // })
-
-  // socket.on('move', (data) => {
-  //   console.log(data.room)
-  //   socket.to(data.room).emit('move_sent', data)
-  // })
+  socket.on('move', (data) => {
+    console.log(data.room)
+    const { players: updatedClients } = clients.find(c => c.room === data.room)
+    const x = updatedClients.map(p => p.id === socket.id ? ({ ...p, ...data, turn: !p.turn }) : ({ ...p, ...data, turn: !p.turn }))
+    socket.to(data.room).emit('move_sent', ...x)
+  })
 
   // socket.on('winner', (data) => {
   //   console.log(data.room)

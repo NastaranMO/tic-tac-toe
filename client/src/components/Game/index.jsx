@@ -24,13 +24,14 @@ function Game({ players, setPlayers, player, socket, username }) {
     setBoard((prev) => [...prev]);
     const moveData = {
       ...player,
-      turn: false,
-      symbol: player.symbol,
       x,
       y,
-      room: player.room,
     };
     socket.emit('move', moveData);
+
+    const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !p.turn }) : ({ ...p, turn: !p.turn }))
+    setPlayers(updatedPlayers)
+
     if (checkWinner(board, setWinner)) {
       setWinner(player.symbol)
       setIsTurn(false)
@@ -42,11 +43,6 @@ function Game({ players, setPlayers, player, socket, username }) {
   };
 
   useEffect(() => {
-    // socket.on('userLeft', (data) => {
-    //   // setPlayers(data);
-    //   console.log('Your opponent left the game')
-    //   setIsOpponentDisconnect(true)
-    // });
 
     socket.on('move_sent', (data) => {
 
@@ -55,8 +51,9 @@ function Game({ players, setPlayers, player, socket, username }) {
       setBoard((prev) => [...prev]);
       setIsTurn(!data.turn)
       checkWinner(board, setWinner)
+      const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
+      setPlayers(updatedPlayers)
       console.log('move===>', data)
-
     })
 
     socket.on('winner_sent', (data) => {
@@ -76,7 +73,7 @@ function Game({ players, setPlayers, player, socket, username }) {
       {
         isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
       }
-      <Status players={players} />
+      <Status players={players} isTurn={isTurn} />
       {/* {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)} */}
       <div className='board-game-container'>
         <div className="row">
