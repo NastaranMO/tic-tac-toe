@@ -9,7 +9,7 @@ const Status = ({ players }) => {
   console.log('players from status', players)
   return (
     <>
-      {/* <ul className='players-list players-list--bottom'>
+      <ul className='players-list players-list--bottom'>
         {players.map(player =>
           <li key={player.id} className='players-list__item'>
             {player.symbol === 'X'
@@ -18,13 +18,13 @@ const Status = ({ players }) => {
             }
           </li>)
         }
-      </ul> */}
+      </ul>
       <ul className='players-list'>
         {players.map(player =>
           <li key={player.id} className='players-list__item'>
             {player.turn ?
               <span> 🟢{' '}{player.username}</span>
-              : <span> {player.username}{' '}🔴</span>}
+              : <span> 🔴{' '}{player.username}</span>}
           </li>)
         }
       </ul>

@@ -26,13 +26,14 @@ main {
   flex-direction: row;
 }
 .column {
-  border-top: none;
-  border-left: none;
-  border-right: 1px solid red;
-  border-bottom: 1px solid red;
-  padding: 20px;
+  width: 100px;
+  height: 100px;
   font-size: 40px;
   cursor: pointer;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: #3f5e6d;
+  border: none;
 }
 
 .none-border-right {
