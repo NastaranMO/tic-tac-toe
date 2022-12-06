@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 // import { Profile } from '../Profile';
 import checkWinner from '../../winner'
 
+const checkIsGameBegin = (players) => players.length === 2
+
 function Game({ players, setPlayers, player, socket, username }) {
   console.log('players from game===>', players)
   const numbers = [1, 2, 3]

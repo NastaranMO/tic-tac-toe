@@ -12,32 +12,19 @@ import axios from 'axios'
 const socket = io.connect('http://localhost:3001');
 
 const checkIsGameBegin = (players) => players.length === 2
+
 const getData = () => JSON.parse(localStorage.getItem('tic-tac-toe')) || '';
 const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
 
-
-
 function App() {
   const [player, setPlayer] = useState('');
-  // const [players, setPlayers] = useState([]);
   const [showGame, setShowGame] = useState(false);
-  const [isGameBegin, setIsGameBegin] = useState(false)
-  // const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
 
-  // const addPlayers = (data) => {
-  //   setPlayers(data);
-  //   const currentPlayer = data.find(p => p.username === player.username)
-  //   if (currentPlayer) setPlayer(currentPlayer)
-  //   if (checkIsGameBegin(data)) setIsGameBegin(true);
-
-  //   setShowGame(true);
-  // }
-
-  const addPlayers = (data) => {
-    // setPlayers(data);
+  const addPlayers = (data, setIsGameBegin) => {
     const currentPlayer = data.players?.find(p => p.username === player.username)
     if (currentPlayer) setPlayer(currentPlayer)
-    if (checkIsGameBegin(data.players)) setIsGameBegin(true);
+
+    if (data.players && checkIsGameBegin(data.players)) setIsGameBegin(true);
 
     setShowGame(true);
   }
@@ -64,8 +51,6 @@ function App() {
             player={player}
             setPlayer={setPlayer}
             socket={socket}
-            isGameBegin={isGameBegin}
-            setIsGameBegin={setIsGameBegin}
             addPlayers={addPlayers}
           />
           :

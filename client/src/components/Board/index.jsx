@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react'
 import MainPage from '../MainPage'
 import Game from '../Game'
 
-const Board = ({ isGameBegin, setIsGameBegin, socket, player, setPlayer, addPlayers }) => {
+const Board = ({ socket, player, setPlayer, addPlayers }) => {
   const [players, setPlayers] = useState([]);
+  const [isGameBegin, setIsGameBegin] = useState(false)
+
 
 
   useEffect(() => {
     socket.on('new_player_connected', (data) => {
       console.log('data is coming', data);
       setPlayers(data.players);
-      addPlayers(data)
+      addPlayers(data, setIsGameBegin)
     });
 
     socket.on('user_left', () => {
@@ -25,7 +27,7 @@ const Board = ({ isGameBegin, setIsGameBegin, socket, player, setPlayer, addPlay
 
   return (
     <div>
-      <MainPage player={player} addPlayers={addPlayers} isCurrentPlayer={true} setPlayers={setPlayers} setPlayer={setPlayer} />
+      <MainPage player={player} addPlayers={addPlayers} setIsGameBegin={setIsGameBegin} isCurrentPlayer={true} setPlayers={setPlayers} setPlayer={setPlayer} />
       {isGameBegin
         &&
         <Game players={players} setPlayers={setPlayers} player={player} socket={socket} username={player.username} />

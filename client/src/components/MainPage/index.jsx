@@ -3,7 +3,7 @@ import './index.css'
 import Profile from '../Profile'
 import axios from 'axios'
 
-const Main = ({ player, setPlayers, setPlayer, addPlayers }) => {
+const Main = ({ player, setPlayers, setPlayer, addPlayers, setIsGameBegin }) => {
   console.log('From Main compomnent', player)
 
   const joinRoomOnSubmitHandler = async (e) => {
@@ -11,7 +11,7 @@ const Main = ({ player, setPlayers, setPlayer, addPlayers }) => {
     // socket.emit('join_game', { room, username });
     const { data } = await axios.get(`http://localhost:3001/game/${player.username}`);
     setPlayers(data.players)
-    addPlayers(data)
+    addPlayers(data, setIsGameBegin)
   }
 
   return (
