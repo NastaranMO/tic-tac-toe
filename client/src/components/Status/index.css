@@ -1,0 +1,10 @@
+.players-list {
+  display: flex;
+  /* background-color: red; */
+  justify-content: space-between;
+  padding: 0;
+  list-style: none;
+}
+.players-list__item {
+  height: 1em;
+}

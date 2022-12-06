@@ -61,5 +61,3 @@ function App() {
 }
 
 export default App;
-{/* <Form addPlayers={addPlayers} socket={socket} setPlayer={setPlayer} /> */ }
-{/* <Game players={players} setPlayers={setPlayers} player={player} socket={socket} username={player.username} /> */ }

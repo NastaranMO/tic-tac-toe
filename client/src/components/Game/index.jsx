@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import { Profile } from '../Profile';
+import './index.css'
 import checkWinner from '../../winner'
+import Status from '../Status';
 
 const checkIsGameBegin = (players) => players.length === 2
 
@@ -75,6 +76,7 @@ function Game({ players, setPlayers, player, socket, username }) {
       {
         isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
       }
+      <Status players={players} />
       {/* {players?.map(p => <Profile key={p.id} player={p} isCurrentPlayer={p.username === player.username} />)} */}
       <div className='board-game-container'>
         <div className="row">
