@@ -8,7 +8,7 @@
 }
 .board-game {
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 .board-game-container.x .column:hover:not(button.column-disable) {
   background-image: url('../../assests/icon-x-outline.svg');
