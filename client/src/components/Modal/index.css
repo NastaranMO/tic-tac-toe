@@ -1,0 +1,70 @@
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal-content {
+  background-color: #2a4855;
+  width: 80vw;
+  color: #a8bfc9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.modal-header {
+  width: 100%;
+  text-align: center;
+}
+
+.modal-header h2 {
+  margin: 0.7em;
+}
+
+.modal-body {
+  width: 90%;
+  margin: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 1em;
+}
+.modal-btn {
+  margin-top: 3em;
+  align-self: flex-end;
+  margin-top: 0.2em;
+  background-image: linear-gradient(#e99d11, #fbc562);
+  border-radius: 5px;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7em;
+  font-size: 0.9em;
+  color: rgb(30, 29, 29);
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-btn:hover {
+  background-image: linear-gradient(#eab249, #fbc562);
+}
+.modal-btn--cancel {
+  background-image: linear-gradient(#a8bfc9, #c9dee8);
+  color: rgb(30, 29, 29);
+}
+.modal-btn--cancel:hover {
+  background-image: linear-gradient(#b5d2dd, #c9dee8);
+}
+@media (min-width: 700px) {
+  .modal-content {
+    width: 40vw;
+  }
+}

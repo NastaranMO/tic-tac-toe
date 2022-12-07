@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.css'
 import checkWinner from '../../winner'
 import Status from '../Status';
+import Modal from '../Modal';
 import { ReactComponent as X } from '../../assests/icon-x.svg'
 import { ReactComponent as O } from '../../assests/icon-o.svg'
 import { ReactComponent as XOutline } from '../../assests/icon-x-outline.svg'
@@ -26,6 +27,7 @@ function Game({ players, setPlayers, player, socket, username }) {
     const player = players.find(p => p.username === username)
     board[x][y] = player.symbol;
     setBoard((prev) => [...prev]);
+
     const moveData = {
       ...player,
       x,
@@ -38,6 +40,7 @@ function Game({ players, setPlayers, player, socket, username }) {
 
     if (checkWinner(board, setWinner)) {
       setWinner(player.symbol)
+      console.log('winner:', player.symbol)
       setIsTurn(false)
     }
 
@@ -61,7 +64,9 @@ function Game({ players, setPlayers, player, socket, username }) {
     })
 
     socket.on('winner_sent', (data) => {
-      console.log(data)
+      console.log('winner in winner sent', data)
+      console.log('winnerin useeffect:', winner)
+
     })
 
 
@@ -70,10 +75,10 @@ function Game({ players, setPlayers, player, socket, username }) {
       socket.emit('winner', { winner, room: '123' })
     }
   }, [socket, winner])
-  console.log(isTurn)
 
   return (
     <div>
+      <Modal showModal={winner ? true : false} winner={winner} />
       <Status players={players} isTurn={isTurn} />
       <div className='board-game-container'>
         <div className="row">
@@ -89,6 +94,9 @@ function Game({ players, setPlayers, player, socket, username }) {
             >
               {b === 'X' && <X />}
               {b === 'O' && <O />}
+              {(b === '' && isTurn && player.symbol === 'X') && <XOutline />}
+              {(b === '' && isTurn && player.symbol === 'O') && <OOutline />}
+
             </button>
           ))}
         </div>
@@ -103,6 +111,9 @@ function Game({ players, setPlayers, player, socket, username }) {
             >
               {b === 'X' && <X />}
               {b === 'O' && <O />}
+              {(b === '' && isTurn && player.symbol === 'X') && <XOutline />}
+              {(b === '' && isTurn && player.symbol === 'O') && <OOutline />}
+
             </button>
           ))}
         </div>
@@ -117,6 +128,8 @@ function Game({ players, setPlayers, player, socket, username }) {
             >
               {b === 'X' && <X />}
               {b === 'O' && <O />}
+              {(b === '' && isTurn && player.symbol === 'X') && <XOutline />}
+              {(b === '' && isTurn && player.symbol === 'O') && <OOutline />}
             </button>
           ))}
         </div>

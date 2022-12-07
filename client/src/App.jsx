@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Board from './components/Board';
 import Login from './components/Login';
 import axios from 'axios'
+// import Modal from './components/Modal';
 
 const socket = io.connect('http://localhost:3001');
 
@@ -56,6 +57,7 @@ function App() {
           :
           <Login setPlayer={setPlayer} store={store} getData={getData} setShowGame={setShowGame} />
       }
+      {/* <Modal showModal={true} /> */}
     </main>
   );
 }
