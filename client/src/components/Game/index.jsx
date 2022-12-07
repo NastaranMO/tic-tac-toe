@@ -40,7 +40,7 @@ function Game({ players, setPlayers, player, socket, username }) {
 
     if (checkWinner(board, setWinner)) {
       setWinner(player.symbol)
-      // store({username, win:})
+      store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw })
       console.log('winner:', player.symbol)
       setIsTurn(false)
     }
