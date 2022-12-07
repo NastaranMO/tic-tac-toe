@@ -1,3 +1,20 @@
 .board-game-container {
   margin: 0 auto;
 }
+
+.board-game--turn {
+  pointer-events: all;
+  opacity: 1;
+}
+.board-game {
+  pointer-events: none;
+  opacity: 0.4;
+}
+.board-game-container.x .column:hover:not(button.column-disable) {
+  background-image: url('../../assests/icon-x-outline.svg');
+  background-repeat: no-repeat;
+}
+.board-game-container.o .column:hover:not(button.column-disable) {
+  background-image: url('../../assests/icon-o-outline.svg');
+  background-repeat: no-repeat;
+}

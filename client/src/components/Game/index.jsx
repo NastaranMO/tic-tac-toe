@@ -59,6 +59,7 @@ function Game({ players, setPlayers, player, socket, username }) {
       setBoard((prev) => [...prev]);
       setIsTurn(!data.turn)
       checkWinner(board, setWinner)
+      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw })
       const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
       setPlayers(updatedPlayers)
       console.log('move===>', data)
@@ -81,63 +82,58 @@ function Game({ players, setPlayers, player, socket, username }) {
     <div>
       <Modal showModal={winner ? true : false} winner={winner} />
       <Status players={players} isTurn={isTurn} />
-      <div className='board-game-container'>
-        <div className="row">
-          {winner && <div>Akhjooooooooon</div>}
+      <div className={isTurn ? 'board-game--turn' : 'board-game'}>
+        <div className={player.symbol === 'X' ? 'board-game-container x' : 'board-game-container o'}>
+          <div className="row">
+            {winner && <div>Akhjooooooooon</div>}
 
-          {board[0].map((b, i) => (
-            <button
-              key={numbers[i]}
-              type="submit"
-              className='column'
-              onClick={() => moveHandler(0, i)}
-              disabled={(b !== '' || !isTurn) && true}
-            >
-              {b === 'X' && <X />}
-              {b === 'O' && <O />}
-              {(b === '' && isTurn && player.symbol === 'X') && <XOutline />}
-              {(b === '' && isTurn && player.symbol === 'O') && <OOutline />}
+            {board[0].map((b, i) => (
+              <button
+                key={numbers[i]}
+                type="submit"
+                className={b !== '' ? 'column column-disable' : 'column'}
+                onClick={() => moveHandler(0, i)}
+                disabled={(b !== '' || !isTurn) && true}
+              >
+                {b === 'X' && <X />}
+                {b === 'O' && <O />}
+              </button>
+            ))}
+          </div>
+          <div className="row">
+            {board[1].map((b, i) => (
+              <button
+                key={numbers[i]}
+                type="submit"
+                className={b !== '' ? 'column column-disable' : 'column'}
 
-            </button>
-          ))}
+                onClick={() => moveHandler(1, i)}
+                disabled={(b !== '' || !isTurn) && true}
+              >
+                {b === 'X' && <X />}
+                {b === 'O' && <O />}
+              </button>
+            ))}
+          </div>
+          <div className="row">
+            {board[2].map((b, i) => (
+              <button
+                key={numbers[i]}
+                type="submit"
+                className={b !== '' ? 'column column-disable' : 'column'}
+                onClick={() => moveHandler(2, i)}
+                disabled={(b !== '' || !isTurn) && true}
+              >
+                {b === 'X' && <X />}
+                {b === 'O' && <O />}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="row">
-          {board[1].map((b, i) => (
-            <button
-              key={numbers[i]}
-              type="submit"
-              className='column'
-              onClick={() => moveHandler(1, i)}
-              disabled={(b !== '' || !isTurn) && true}
-            >
-              {b === 'X' && <X />}
-              {b === 'O' && <O />}
-              {(b === '' && isTurn && player.symbol === 'X') && <XOutline />}
-              {(b === '' && isTurn && player.symbol === 'O') && <OOutline />}
-
-            </button>
-          ))}
-        </div>
-        <div className="row">
-          {board[2].map((b, i) => (
-            <button
-              key={numbers[i]}
-              type="submit"
-              className='column'
-              onClick={() => moveHandler(2, i)}
-              disabled={(b !== '' || !isTurn) && true}
-            >
-              {b === 'X' && <X />}
-              {b === 'O' && <O />}
-              {(b === '' && isTurn && player.symbol === 'X') && <XOutline />}
-              {(b === '' && isTurn && player.symbol === 'O') && <OOutline />}
-            </button>
-          ))}
-        </div>
+        {
+          isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
+        }
       </div>
-      {
-        isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
-      }
     </div>
   );
 }

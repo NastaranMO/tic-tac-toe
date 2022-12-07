@@ -31,7 +31,7 @@ main {
   font-size: 40px;
   cursor: pointer;
   margin: 5px;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 10px;
   background-color: #3f5e6d;
   border: none;
