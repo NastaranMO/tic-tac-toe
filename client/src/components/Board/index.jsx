@@ -42,6 +42,7 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
           player={player}
           socket={socket}
           username={player.username}
+          setIsGameBegin={setIsGameBegin}
         />
       }
 

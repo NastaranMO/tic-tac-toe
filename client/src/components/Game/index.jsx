@@ -10,7 +10,7 @@ import { ReactComponent as OOutline } from '../../assests/icon-o-outline.svg'
 
 const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
 
-function Game({ players, setPlayers, player, socket, username }) {
+function Game({ players, setPlayers, player, socket, username, setIsGameBegin }) {
   console.log('players from game===>', players)
   const numbers = [1, 2, 3]
   const [board, setBoard] = useState([
@@ -80,7 +80,7 @@ function Game({ players, setPlayers, player, socket, username }) {
 
   return (
     <div>
-      <Modal showModal={winner ? true : false} winner={winner} />
+      <Modal showModal={winner ? true : false} winner={winner} setIsGameBegin={setIsGameBegin} />
       <Status players={players} isTurn={isTurn} />
       <div className={isTurn ? 'board-game--turn' : 'board-game'}>
         <div className={player.symbol === 'X' ? 'board-game-container x' : 'board-game-container o'}>
