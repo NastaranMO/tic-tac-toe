@@ -53,6 +53,7 @@ const createPlayer = (socket, data) => {
     const isFirst = client.players.length === 0
 
     const newPlayer = {
+      ...data,
       id: socket.id,
       username: data.username,
       symbol: isFirst ? 'X' : 'O',
@@ -66,6 +67,7 @@ const createPlayer = (socket, data) => {
   clients.push({ room, players: [] })
 
   const newPlayer = {
+    ...data,
     id: socket.id,
     username: data.username,
     symbol: 'X',

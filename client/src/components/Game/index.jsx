@@ -8,7 +8,7 @@ import { ReactComponent as O } from '../../assests/icon-o.svg'
 import { ReactComponent as XOutline } from '../../assests/icon-x-outline.svg'
 import { ReactComponent as OOutline } from '../../assests/icon-o-outline.svg'
 
-const checkIsGameBegin = (players) => players.length === 2
+const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
 
 function Game({ players, setPlayers, player, socket, username }) {
   console.log('players from game===>', players)
@@ -40,6 +40,7 @@ function Game({ players, setPlayers, player, socket, username }) {
 
     if (checkWinner(board, setWinner)) {
       setWinner(player.symbol)
+      // store({username, win:})
       console.log('winner:', player.symbol)
       setIsTurn(false)
     }
