@@ -11,7 +11,7 @@ const Login = ({ setPlayer, store, setShowGame, getData }) => {
 
   const loginSubmitHandler = (e) => {
     e.preventDefault();
-    store({ username, win: 0, lost: 0, draw: 0 });
+    store({ username, win: 0, lost: 0, draw: 0, total: 0 });
     setShowGame(true)
   }
 
@@ -25,7 +25,7 @@ const Login = ({ setPlayer, store, setShowGame, getData }) => {
           className='form__input'
           onChange={(e) => {
             setUsername(e.target.value);
-            setPlayer({ username: e.target.value, win: 0, lost: 0, draw: 0 })
+            setPlayer({ username: e.target.value, win: 0, lost: 0, draw: 0, total: 0 })
           }}
           placeholder="John..."
         />
