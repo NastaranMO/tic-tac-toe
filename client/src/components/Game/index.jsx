@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './index.css'
-import checkWinner from '../../winner'
+import { isWinner, isDraw } from '../../winner'
 import Status from '../Status';
 import Modal from '../Modal';
 import Cell from '../Cell';
@@ -24,7 +24,9 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
     const updatedPlayers = players.map(p => ({ ...p, turn: !p.turn }))
     setPlayers(updatedPlayers)
 
-    if (checkWinner(board, player.symbol)) {
+    if (isDraw(board) && !isWinner(board, player.symbol)) setWinner('hello')
+
+    if (isWinner(board, player.symbol)) {
       console.log('winner:', player.symbol)
 
       setWinner(player.symbol)
@@ -71,6 +73,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
                 cell={cell}
                 id={idx}
                 moveHandler={moveHandler}
+                isTurn={isTurn}
               />
             )}
           </div>

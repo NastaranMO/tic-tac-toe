@@ -9,8 +9,12 @@ const combinations = [
   [2, 4, 6]
 ]
 
-const winner = (board, symbol) => {
+const isWinner = (board, symbol) => {
   return combinations.some(arr => arr.every(i => board[i] === symbol))
 }
 
-export default winner;
+const isDraw = (board) => {
+  return board.every(item => item === 'X' || item === 'O')
+}
+
+export { isWinner, isDraw };
