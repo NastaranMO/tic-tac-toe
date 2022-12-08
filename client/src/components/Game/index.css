@@ -24,13 +24,17 @@
   background: url('../../assests/icon-o-outline.svg') no-repeat center;
   background-color: #3f5e6d;
 }
-
 @media (min-width: 600px) {
   .game-container {
     width: 50vw;
   }
 }
 @media (min-width: 900px) {
+  .game-container {
+    width: 40vw;
+  }
+}
+@media (min-width: 1000px) {
   .game-container {
     width: 30vw;
   }

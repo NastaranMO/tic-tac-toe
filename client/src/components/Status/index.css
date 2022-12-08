@@ -8,6 +8,7 @@
 }
 .players-list__item {
   height: 1em;
+  text-transform: capitalize;
 }
 .players-list--bottom {
   border-bottom: 1px solid rgb(171, 166, 166);
