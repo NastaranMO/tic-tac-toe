@@ -5,8 +5,8 @@ import { ReactComponent as O } from '../../assests/icon-o.svg'
 import { ReactComponent as XOutline } from '../../assests/icon-x-outline.svg'
 import { ReactComponent as OOutline } from '../../assests/icon-o-outline.svg'
 
-const Status = ({ players }) => {
-  console.log('players from status', players)
+const Status = ({ players, isTurn }) => {
+  console.log('players from status', players, isTurn)
   return (
     <>
       <ul className='players-list players-list--bottom'>

@@ -45,8 +45,7 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
           setIsGameBegin={setIsGameBegin}
         />
       }
-
-    </div >
+    </div>
   )
 }
 

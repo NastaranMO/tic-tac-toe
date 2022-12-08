@@ -12,37 +12,26 @@ const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data)
 
 function Game({ players, setPlayers, player, socket, username, setIsGameBegin }) {
   console.log('players from game===>', players)
-  const numbers = [1, 2, 3]
-  const [board, setBoard] = useState([
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', ''],
-  ]);
+
+  const keyCells = Array(9).fill(0).map((num, i) => num + i)
+  const [board, setBoard] = useState(Array(9).fill(''));
   const [winner, setWinner] = useState('')
-  const [isOpponentDisconnect, setIsOpponentDisconnect] = useState(false);
   const [isTurn, setIsTurn] = useState(player.turn)
 
 
-  const moveHandler = async (x, y) => {
-    const player = players.find(p => p.username === username)
-    board[x][y] = player.symbol;
-    setBoard((prev) => [...prev]);
+  const moveHandler = async (idx) => {
+    board[idx] = player.symbol;
+    setBoard(prev => [...prev]);
+    socket.emit('move', { ...player, board });
 
-    const moveData = {
-      ...player,
-      x,
-      y,
-    };
-    socket.emit('move', moveData);
-
-    const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !p.turn }) : ({ ...p, turn: !p.turn }))
+    const updatedPlayers = players.map(p => ({ ...p, turn: !p.turn }))
     setPlayers(updatedPlayers)
 
     if (checkWinner(board, setWinner)) {
-      setWinner(player.symbol)
-      store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: total + 1 })
+      // setWinner(player.symbol)
+      // store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 })
       console.log('winner:', player.symbol)
-      setIsTurn(false)
+      // setIsTurn(false)
     }
 
     setIsTurn(prev => !prev)
@@ -53,13 +42,12 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
   useEffect(() => {
 
     socket.on('move_sent', (data) => {
-
       console.log('data move:', data)
-      board[data.x][data.y] = data.symbol;
-      setBoard((prev) => [...prev]);
+      setBoard(data.board)
       setIsTurn(!data.turn)
-      checkWinner(board, setWinner)
-      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: total + 1 })
+      // checkWinner(board, setWinner)
+      console.log('move sent event called')
+      // store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
       const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
       setPlayers(updatedPlayers)
       console.log('move===>', data)
@@ -74,67 +62,30 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
 
     if (winner) {
       setIsTurn(false)
-      socket.emit('winner', { winner, room: '123' })
+      // socket.emit('winner', { winner, room: '123' })
     }
   }, [socket, winner])
 
   return (
-    <div>
-      <Modal showModal={winner ? true : false} winner={winner} setIsGameBegin={setIsGameBegin} />
-      <Status players={players} isTurn={isTurn} />
-      <div className={isTurn ? 'board-game--turn' : 'board-game'}>
-        <div className={player.symbol === 'X' ? 'board-game-container x' : 'board-game-container o'}>
-          <div className="row">
-            {winner && <div>Akhjooooooooon</div>}
-
-            {board[0].map((b, i) => (
+    <>
+      <div>
+        <Modal showModal={winner ? true : false} winner={winner} setIsGameBegin={setIsGameBegin} />
+        <Status players={players} isTurn={isTurn} />
+        <div className={isTurn ? 'game-container board-game--turn' : 'game-container board-game'}>
+          <div className={player.symbol === 'X' ? 'board-game__container x' : 'board-game__container o'}>
+            {board.map((cell, idx) =>
               <button
-                key={numbers[i]}
-                type="submit"
-                className={b !== '' ? 'column column-disable' : 'column'}
-                onClick={() => moveHandler(0, i)}
-                disabled={(b !== '' || !isTurn) && true}
+                className={cell !== '' ? 'cell cell-disable' : 'cell'}
+                key={keyCells[idx]}
+                onClick={() => moveHandler(idx)}
               >
-                {b === 'X' && <X />}
-                {b === 'O' && <O />}
-              </button>
-            ))}
-          </div>
-          <div className="row">
-            {board[1].map((b, i) => (
-              <button
-                key={numbers[i]}
-                type="submit"
-                className={b !== '' ? 'column column-disable' : 'column'}
-
-                onClick={() => moveHandler(1, i)}
-                disabled={(b !== '' || !isTurn) && true}
-              >
-                {b === 'X' && <X />}
-                {b === 'O' && <O />}
-              </button>
-            ))}
-          </div>
-          <div className="row">
-            {board[2].map((b, i) => (
-              <button
-                key={numbers[i]}
-                type="submit"
-                className={b !== '' ? 'column column-disable' : 'column'}
-                onClick={() => moveHandler(2, i)}
-                disabled={(b !== '' || !isTurn) && true}
-              >
-                {b === 'X' && <X />}
-                {b === 'O' && <O />}
-              </button>
-            ))}
+                {cell === 'X' && <X />}
+                {cell === 'O' && <O />}
+              </button>)}
           </div>
         </div>
-        {
-          isOpponentDisconnect && <div style={{ color: 'red' }}>nobody is here...</div>
-        }
       </div>
-    </div>
+    </>
   );
 }
 

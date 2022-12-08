@@ -11,17 +11,7 @@ main {
   /* margin-top: 1em; */
   gap: 2em;
 }
-
-.board-game-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  /* padding: 10px; */
-  /* background-color: red; */
-}
-.row {
+/* .row {
   display: flex;
   flex-direction: row;
 }
@@ -31,27 +21,8 @@ main {
   font-size: 40px;
   cursor: pointer;
   margin: 5px;
-  /* padding: 20px; */
+  padding: 20px;
   border-radius: 10px;
   background-color: #3f5e6d;
   border: none;
-}
-
-.column[data-symbol='X'] {
-  background-color: pink;
-}
-
-.noHover {
-  pointer-events: none;
-  /* background-color: red; */
-}
-.chover {
-  background-color: green;
-}
-
-.none-border-right {
-  border-right: none;
-}
-.none-border-bottom {
-  border-bottom: none;
-}
+} */

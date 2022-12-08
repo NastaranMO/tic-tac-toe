@@ -44,6 +44,7 @@ function App() {
 
   return (
     <main>
+      {/* <div style={{ color: 'black', backgroundColor: 'red', width: '100%' }}>djfj</div> */}
       <Header />
       {
         showGame
@@ -57,7 +58,6 @@ function App() {
           :
           <Login setPlayer={setPlayer} store={store} getData={getData} setShowGame={setShowGame} />
       }
-      {/* <Modal showModal={true} /> */}
     </main>
   );
 }
