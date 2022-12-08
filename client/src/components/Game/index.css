@@ -17,12 +17,12 @@
   opacity: 0.3;
 }
 .board-game__container.x .cell:hover:not(button.cell-disable) {
-  background-image: url('../../assests/icon-x-outline.svg');
-  background-repeat: no-repeat;
+  background: url('../../assests/icon-x-outline.svg') no-repeat center;
+  background-color: #3f5e6d;
 }
 .board-game__container.o .cell:hover:not(button.cell-disable) {
-  background-image: url('../../assests/icon-o-outline.svg');
-  background-repeat: no-repeat;
+  background: url('../../assests/icon-o-outline.svg') no-repeat center;
+  background-color: #3f5e6d;
 }
 
 @media (min-width: 600px) {

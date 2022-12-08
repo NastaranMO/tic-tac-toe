@@ -2,7 +2,6 @@
   flex: 1 1 30%;
   width: 100px;
   height: 100px;
-  font-size: 40px;
   cursor: pointer;
   margin: 5px;
   border-radius: 10px;
@@ -10,7 +9,7 @@
   border: none;
 }
 
-@media (min-width: 600px) {
+/* @media (min-width: 600px) {
   .cell {
     height: 100px;
   }
@@ -19,4 +18,4 @@
   .cell {
     height: 100px;
   }
-}
+} */

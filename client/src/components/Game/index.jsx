@@ -24,7 +24,12 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
     const updatedPlayers = players.map(p => ({ ...p, turn: !p.turn }))
     setPlayers(updatedPlayers)
 
-    if (isDraw(board) && !isWinner(board, player.symbol)) setWinner('hello')
+    if (isDraw(board) && !isWinner(board, player.symbol)) {
+      setWinner('draw')
+      socket.emit('winner', { ...player, winner: 'draw' })
+      store({ username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 })
+      return;
+    }
 
     if (isWinner(board, player.symbol)) {
       console.log('winner:', player.symbol)
@@ -43,13 +48,17 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
     socket.on('winner_sent', (data) => {
       console.log('winner in winner sent', data)
       setWinner(data)
+      if (data === 'draw') {
+        store({ username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 })
+        return;
+      }
+      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
     })
 
     socket.on('move_sent', (data) => {
       console.log('move sent event called', data)
       setBoard(data.board)
       setIsTurn(!data.turn)
-      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
       const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
       setPlayers(updatedPlayers)
     })
