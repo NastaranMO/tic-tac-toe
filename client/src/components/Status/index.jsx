@@ -23,8 +23,8 @@ const Status = ({ players, isTurn }) => {
         {players.map(player =>
           <li key={player.id} className='players-list__item'>
             {player.turn ?
-              <span> 🟢{' '}{player.username}</span>
-              : <span> 🔴{' '}{player.username}</span>}
+              <span> 🟢{' '}<b>{player.username}</b></span>
+              : <span> 🔴{' '}<b>{player.username}</b></span>}
           </li>)
         }
       </ul>

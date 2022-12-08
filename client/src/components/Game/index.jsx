@@ -23,16 +23,18 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
 
     const updatedPlayers = players.map(p => ({ ...p, turn: !p.turn }))
     setPlayers(updatedPlayers)
+    // console.log('==========>', isWinner(board, player.symbol))
+    const [checkWinner, winnerPattern] = isWinner(board, player.symbol);
 
-    if (isDraw(board) && !isWinner(board, player.symbol)) {
+    if (isDraw(board) && !checkWinner) {
       setWinner('draw')
       socket.emit('winner', { ...player, winner: 'draw' })
       store({ username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 })
       return;
     }
 
-    if (isWinner(board, player.symbol)) {
-      console.log('winner:', player.symbol)
+    if (checkWinner) {
+      console.log('winner:', player.symbol, winnerPattern)
 
       setWinner(player.symbol)
       store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 })

@@ -8,6 +8,8 @@
 }
 .players-list__item {
   height: 1em;
+}
+.players-list__item b {
   text-transform: capitalize;
 }
 .players-list--bottom {

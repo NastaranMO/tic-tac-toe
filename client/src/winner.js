@@ -10,7 +10,15 @@ const combinations = [
 ]
 
 const isWinner = (board, symbol) => {
-  return combinations.some(arr => arr.every(i => board[i] === symbol))
+  let winnerPattern;
+  return [combinations.some(arr => {
+    if (arr.every(i => board[i] === symbol)) {
+      winnerPattern = arr;
+      return true
+    }
+
+    return false
+  }), winnerPattern]
 }
 
 const isDraw = (board) => {

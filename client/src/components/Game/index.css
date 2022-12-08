@@ -39,3 +39,13 @@
     width: 30vw;
   }
 }
+@media (min-width: 1200px) {
+  .game-container {
+    width: 25vw;
+  }
+}
+@media (min-width: 1600px) {
+  .game-container {
+    width: 20vw;
+  }
+}
