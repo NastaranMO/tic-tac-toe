@@ -40,7 +40,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
 
     if (checkWinner(board, setWinner)) {
       setWinner(player.symbol)
-      store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw })
+      store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: total + 1 })
       console.log('winner:', player.symbol)
       setIsTurn(false)
     }
@@ -59,7 +59,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
       setBoard((prev) => [...prev]);
       setIsTurn(!data.turn)
       checkWinner(board, setWinner)
-      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw })
+      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: total + 1 })
       const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
       setPlayers(updatedPlayers)
       console.log('move===>', data)
