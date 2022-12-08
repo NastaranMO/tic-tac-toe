@@ -46,14 +46,11 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
 
     socket.on('move_sent', (data) => {
       console.log('move sent event called', data)
-
       setBoard(data.board)
       setIsTurn(!data.turn)
-      // checkWinner(board, setWinner)
       store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
       const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
       setPlayers(updatedPlayers)
-      console.log('move===>', data)
     })
 
 
