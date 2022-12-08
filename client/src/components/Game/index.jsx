@@ -5,8 +5,6 @@ import Status from '../Status';
 import Modal from '../Modal';
 import { ReactComponent as X } from '../../assests/icon-x.svg'
 import { ReactComponent as O } from '../../assests/icon-o.svg'
-import { ReactComponent as XOutline } from '../../assests/icon-x-outline.svg'
-import { ReactComponent as OOutline } from '../../assests/icon-o-outline.svg'
 
 const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
 
@@ -27,42 +25,40 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
     const updatedPlayers = players.map(p => ({ ...p, turn: !p.turn }))
     setPlayers(updatedPlayers)
 
-    if (checkWinner(board, setWinner)) {
-      // setWinner(player.symbol)
-      // store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 })
+    if (checkWinner(board, player.symbol)) {
       console.log('winner:', player.symbol)
-      // setIsTurn(false)
+
+      setWinner(player.symbol)
+      store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 })
+      setIsTurn(false)
+      socket.emit('winner', { ...player, winner: player.symbol })
     }
 
     setIsTurn(prev => !prev)
-
     console.log('board:', board);
   };
 
   useEffect(() => {
+    socket.on('winner_sent', (data) => {
+      console.log('winner in winner sent', data)
+      setWinner(data)
+    })
 
     socket.on('move_sent', (data) => {
-      console.log('data move:', data)
+      console.log('move sent event called', data)
+
       setBoard(data.board)
       setIsTurn(!data.turn)
       // checkWinner(board, setWinner)
-      console.log('move sent event called')
-      // store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
+      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
       const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
       setPlayers(updatedPlayers)
       console.log('move===>', data)
     })
 
-    socket.on('winner_sent', (data) => {
-      console.log('winner in winner sent', data)
-      console.log('winnerin useeffect:', winner)
-
-    })
-
 
     if (winner) {
       setIsTurn(false)
-      // socket.emit('winner', { winner, room: '123' })
     }
   }, [socket, winner])
 

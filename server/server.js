@@ -103,11 +103,11 @@ io.on('connection', (socket) => {
     socket.to(data.room).emit('move_sent', ...x)
   })
 
-  // socket.on('winner', (data) => {
-  //   console.log(data.room)
-  //   console.log(`winner============> ${data.winner}`)
-  //   socket.to(data.room).emit('winner_sent', data.winner)
-  // })
+  socket.on('winner', (data) => {
+    console.log(data.room)
+    console.log(`winner============> ${data.winner}`)
+    socket.to(data.room).emit('winner_sent', data.winner)
+  })
 
   socket.on('disconnect', () => {
     const disconnectClient = clients.find(c => c.players.find(p => p.id === socket.id))
