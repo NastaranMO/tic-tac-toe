@@ -3,8 +3,7 @@ import './index.css'
 import checkWinner from '../../winner'
 import Status from '../Status';
 import Modal from '../Modal';
-import { ReactComponent as X } from '../../assests/icon-x.svg'
-import { ReactComponent as O } from '../../assests/icon-o.svg'
+import Cell from '../Cell';
 
 const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
 
@@ -67,14 +66,13 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
         <div className={isTurn ? 'game-container board-game--turn' : 'game-container board-game'}>
           <div className={player.symbol === 'X' ? 'board-game__container x' : 'board-game__container o'}>
             {board.map((cell, idx) =>
-              <button
-                className={cell !== '' ? 'cell cell-disable' : 'cell'}
+              <Cell
                 key={keyCells[idx]}
-                onClick={() => moveHandler(idx)}
-              >
-                {cell === 'X' && <X />}
-                {cell === 'O' && <O />}
-              </button>)}
+                cell={cell}
+                id={idx}
+                moveHandler={moveHandler}
+              />
+            )}
           </div>
         </div>
       </div>
