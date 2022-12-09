@@ -27,11 +27,14 @@ const Status = ({ players, isTurn }) => {
       </ul>
       <ul className='players-list'>
         {players.map(player =>
-          <li key={player.id} className='players-list__item'>
+          <motion.li
+            animate={{ scale: player.turn ? 1.3 : 1, originX: 0 }}
+            key={player.id}
+            className='players-list__item'>
             {player.turn ?
               <span> 🟢{' '}<b>{player.username}</b></span>
               : <span> 🔴{' '}<b>{player.username}</b></span>}
-          </li>)
+          </motion.li>)
         }
       </ul>
     </motion.div>
