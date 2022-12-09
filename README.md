@@ -29,6 +29,7 @@ You can see my Tic Tac Toe online at: ---
 - Nodejs
 - Socket.io
 - Framer Motion
+- BEM css naming convention
 
 ### How to run?
 
