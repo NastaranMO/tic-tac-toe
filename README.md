@@ -13,7 +13,7 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 
 You can see my Tic Tac Toe online at: ---
 
-### My process
+### Specifications
 
 - Mobile first approach
 - Calculate the winner or draw and store user info in the local storage for next usage
