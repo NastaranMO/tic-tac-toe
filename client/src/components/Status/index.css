@@ -1,5 +1,7 @@
 .players-list-container {
   margin-bottom: 2em;
+  color: #a8bfc9;
+  text-transform: capitalize;
 }
 .players-list {
   display: flex;
@@ -16,7 +18,11 @@
   text-transform: capitalize;
 }
 .players-list--bottom {
-  border-bottom: 1px solid rgb(171, 166, 166);
   padding-bottom: 0.6em;
   margin-bottom: 0;
+}
+hr {
+  background-image: linear-gradient(to right, #1f3641, #a8bfc9, #1f3641);
+  height: 1px;
+  border: none;
 }

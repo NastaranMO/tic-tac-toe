@@ -22,7 +22,7 @@ const Profile = ({ player }) => {
         <p className='profile-item profile-item--lose'>Lose: {player.lost}</p>
         <p className='profile-item profile-item--draw'>Draw: {player.draw}</p>
       </div>
-    </div >
+    </div>
   )
 
 }
