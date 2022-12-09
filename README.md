@@ -30,11 +30,11 @@ You can see my Tic Tac Toe online at: ---
 - Socket.io
 - Framer Motion
 
-### Screenshot
-
-![](./client/src/assests/tic-tac-toe.png)
-
 ### How to run?
 
 - cd ../client npm i npm start
 - cd ../backend npm i npm start
+
+### Screenshot
+
+![](./client/src/assests/tic-tac-toe.png)
