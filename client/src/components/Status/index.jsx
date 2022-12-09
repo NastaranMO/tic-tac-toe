@@ -21,16 +21,6 @@ const Status = ({ players, isTurn }) => {
       animate='visible'
       className='players-list-container'
     >
-      {/* <ul className='players-list players-list--bottom'>
-        {players.map(player =>
-          <li key={player.id} className='players-list__item'>
-            {player.symbol === 'X'
-              ? 'X'
-              : 'O'
-            }
-          </li>)
-        }
-      </ul> */}
       <hr />
       <ul className='players-list'>
         {players.map(player =>
