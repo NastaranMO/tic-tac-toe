@@ -38,4 +38,4 @@ You can see my Tic Tac Toe online at: ---
 ### Screenshot
 
 <!-- ![](./client/src/assests/tic-tac-toe.png) -->
-<img src="./client/src/assests/tic-tac-toe.png" alt="Kitten" title="A cute kitten" width="150" height="100" /> 
+<img src="./client/src/assests/tic-tac-toe.png" alt="Kitten" title="A cute kitten" width="350" height="300" /> 
