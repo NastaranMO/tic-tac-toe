@@ -29,6 +29,6 @@ You can see my Tic Tac Toe online at: ---
 - Socket.io
 - Framer Motion
 
-# How to run?
+### How to run?
 - cd ../client npm i
 - cd ../backend npm i
