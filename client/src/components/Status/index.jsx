@@ -1,18 +1,24 @@
 import React from 'react'
 import './index.css'
-import { ReactComponent as X } from '../../assests/icon-x.svg'
-import { ReactComponent as O } from '../../assests/icon-o.svg'
-import { ReactComponent as XOutline } from '../../assests/icon-x-outline.svg'
-import { ReactComponent as OOutline } from '../../assests/icon-o-outline.svg'
 import { motion } from 'framer-motion'
+
+const containerVariants = {
+  hidden: {
+    y: '-100vh',
+  },
+  visible: {
+    y: 0,
+    transition: { duration: 1.5, delay: .1 }
+  }
+}
 
 const Status = ({ players, isTurn }) => {
   console.log('players from status', players, isTurn)
   return (
     <motion.div
-      initial={{ y: '-100vw' }}
-      animate={{ y: 0 }}
-      transition={{ duration: 1.5, delay: .1 }}
+      variants={containerVariants}
+      initial='hidden'
+      animate='visible'
       className='players-list-container'
     >
       <ul className='players-list players-list--bottom'>
@@ -28,7 +34,8 @@ const Status = ({ players, isTurn }) => {
       <ul className='players-list'>
         {players.map(player =>
           <motion.li
-            animate={{ scale: player.turn ? 1.3 : 1, originX: 0 }}
+            animate={{ scale: player.turn ? 1.3 : 1, originX: 0, type: 'spring' }}
+            transition={{ duration: .4 }}
             key={player.id}
             className='players-list__item'>
             {player.turn ?
