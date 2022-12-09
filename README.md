@@ -2,12 +2,18 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 
 ## Table of contents
 
+- [Demo](#demo)
 - [My process](#my-process)
 - [Built with](#built-with)
+- [How to run?](#how-to-run)
 
 ## Overview
 
-### Built with
+### Demo
+
+You can see my Tic Tac Toe online at: ---
+
+### My process
 
 - Mobile first approach
 - Calculate the winner or draw and store user info in the local storage for next usage
@@ -16,3 +22,13 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 - Implemented with React HOOKS 
 - Fully modular
 - Adding animation and effects by Framer Motion
+
+### Built with
+- Reactjs
+- Nodejs
+- Socket.io
+- Framer Motion
+
+# How to run?
+- cd ../client npm i
+- cd ../backend npm i
