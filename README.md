@@ -32,8 +32,14 @@ You can see my Tic Tac Toe online at: ---
 
 ### How to run?
 
-- cd ../client npm i npm start
-- cd ../backend npm i npm start
+1. Start `tic-tac-toe`-application and ensure that it is running on `http://localhost:3000`
+2. Run the backend
+
+    ```bash
+    cd ../server
+    npm i
+    npm start
+    ```
 
 ### Screenshot
 
