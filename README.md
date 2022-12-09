@@ -19,21 +19,22 @@ You can see my Tic Tac Toe online at: ---
 - Calculate the winner or draw and store user info in the local storage for next usage
 - Handling backend and channels with Socket.io
 - Managing states with React
-- Implemented with React HOOKS 
+- Implemented with React HOOKS
 - Fully modular
 - Adding animation and effects by Framer Motion
 
 ### Built with
+
 - Reactjs
 - Nodejs
 - Socket.io
 - Framer Motion
 
-
 ### Screenshot
 
-![](./src/assets/screen-shot.png)
+![](./src/assets/tic-tac-toe.png)
 
 ### How to run?
+
 - cd ../client npm i npm start
 - cd ../backend npm i npm start
