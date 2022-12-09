@@ -4,6 +4,7 @@ import { isWinner, isDraw } from '../../winner'
 import Status from '../Status';
 import Modal from '../Modal';
 import Cell from '../Cell';
+import Timer from '../Timer'
 
 const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
 
@@ -14,7 +15,13 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
   const [board, setBoard] = useState(Array(9).fill(''));
   const [winner, setWinner] = useState('')
   const [isTurn, setIsTurn] = useState(player.turn)
+  const [showTimer, setShowTimer] = useState(0);
 
+  const timerHandler = () => {
+    setTimeout(() => {
+
+    }, 5000);
+  }
 
   const moveHandler = async (idx) => {
     board[idx] = player.symbol;
@@ -69,11 +76,19 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
     if (winner) {
       setIsTurn(false)
     }
-  }, [socket, winner])
+
+    if (showTimer <= 5) {
+      setTimeout(() => {
+        setShowTimer(prev => prev + 1)
+      }, 1000);
+    }
+  }, [socket, winner, showTimer])
 
   return (
     <>
       <div>
+        {/* <Timer showTimer={showTimer} /> */}
+        {/* <div className={showTimer > 5 ? '' : 'disable-game'}> */}
         <Modal showModal={winner ? true : false} winner={winner} setIsGameBegin={setIsGameBegin} />
         <Status players={players} isTurn={isTurn} />
         <div className={isTurn ? 'game-container board-game--turn' : 'game-container board-game'}>
@@ -89,6 +104,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
             )}
           </div>
         </div>
+        {/* </div> */}
       </div>
     </>
   );

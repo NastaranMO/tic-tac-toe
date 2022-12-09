@@ -24,6 +24,9 @@
   background: url('../../assests/icon-o-outline.svg') no-repeat center;
   background-color: #3f5e6d;
 }
+.disable-game {
+  opacity: 0.2;
+}
 @media (min-width: 600px) {
   .game-container {
     width: 50vw;
