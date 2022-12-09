@@ -4,7 +4,6 @@ import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
 import { v4 } from 'uuid'
-// import { v4 as uuid } from 'uuid'
 
 dotenv.config()
 const port = process.env.PORT
@@ -21,20 +20,6 @@ const io = new Server(server, {
     origin: '*'
   }
 })
-
-// const createPlayer = (socket, data) => {
-//   const { username } = data
-//   const isFirst = players.length === 0
-
-//   const newPlayer = {
-//     id: socket.id,
-//     username,
-//     symbol: isFirst ? 'X' : 'O',
-//     turn: isFirst,
-//     room
-//   }
-//   return newPlayer
-// }
 
 const checkRooms = () => {
   const client = clients.find(p => p.players?.length < 2)
@@ -77,21 +62,16 @@ const createPlayer = (socket, data) => {
   return [newPlayer, room]
 }
 
-// const isGameBegin = () => players.length === 2
-
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
 
   socket.on('connect-game', (data) => {
-    // console.log('connect to game :', data)
     const [newPlayer, room] = createPlayer(socket, data)
     const client = clients.find(c => c.room === room)
     client.players.push(newPlayer)
     socket.join(room)
 
-    // console.log('clients connect game is', clients)
     clients.map(c => console.log('c', c))
-    // console.log('client => connect game is', client)
 
     socket.to(room).emit('new_player_connected', client)
   })
@@ -118,9 +98,6 @@ io.on('connection', (socket) => {
       socket.to(room).emit('user_left', clients)
     }
 
-    // if (room) {
-    //   socket.to(room).emit('userLeft', clients)
-    // }
     console.log('clients disconnected', clients)
     console.log('User Disconnected', socket.id)
   })

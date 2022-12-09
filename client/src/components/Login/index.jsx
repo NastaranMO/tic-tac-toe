@@ -3,6 +3,7 @@ import './index.css'
 import Header from '../Header';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { motion } from 'framer-motion'
 
 
 
@@ -16,9 +17,16 @@ const Login = ({ setPlayer, store, setShowGame, getData }) => {
   }
 
   return (
-    <div className='form-container'>
+    <motion.div
+      className='form-container'
+      initial={{ y: -150 }}
+      animate={{ y: 10 }}
+      transition={{ delay: 0.2, type: 'spring', stiffness: 120 }}
+    >
       <form className='form' onSubmit={loginSubmitHandler}>
-        <label htmlFor='name' className='form__label'>Enter your name</label>
+        <label htmlFor='name' className='form__label'>
+          Enter your name
+        </label>
         <input
           type="text"
           id="name"
@@ -29,9 +37,12 @@ const Login = ({ setPlayer, store, setShowGame, getData }) => {
           }}
           placeholder="John..."
         />
-        <button type="submit" className='form__btn'>Enter</button>
+        <button
+          type="submit"
+          className='form__btn'
+        >Enter</button>
       </form>
-    </div>
+    </motion.div>
 
   )
 }

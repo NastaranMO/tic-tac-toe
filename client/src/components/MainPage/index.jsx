@@ -2,6 +2,7 @@ import React from 'react'
 import './index.css'
 import Profile from '../Profile'
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 const Main = ({ player, setPlayers, setPlayer, addPlayers, setIsGameBegin }) => {
   console.log('From Main compomnent', player)
@@ -18,7 +19,13 @@ const Main = ({ player, setPlayers, setPlayer, addPlayers, setIsGameBegin }) => 
     <div className='box-container'>
       <Profile player={player} />
       <form onSubmit={joinRoomOnSubmitHandler}>
-        <button type="submit" className='box-btn'>Find a match</button>
+        <motion.button
+          type="submit"
+          className='box-btn--match'
+          whileHover={{ scale: 1.04 }}
+        >
+          Find a match
+        </motion.button>
       </form>
     </div>
   )

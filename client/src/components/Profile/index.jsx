@@ -4,7 +4,9 @@ import './index.css'
 const Profile = ({ player }) => {
   console.log('player in profile', player)
   return (
-    <div className='profile'>
+    <div
+      className='profile'
+    >
       <div className='profile__text'>
         <h1>Welcome, {player.username}!</h1>
         <p className='profile__text--paragraf'>This project designed and developed with Nodejs, Socket io and React.</p>

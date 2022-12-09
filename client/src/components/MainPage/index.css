@@ -2,7 +2,7 @@
   padding: 2em;
 }
 
-.box-btn {
+.box-btn--match {
   margin-top: 3em;
   align-self: flex-end;
   margin-top: 0.2em;
@@ -12,8 +12,9 @@
   border-radius: 5px;
   padding: 0.7em;
   font-size: 0.9em;
-  color: white;
+  color: rgb(255, 255, 255);
   font-weight: bold;
+  cursor: pointer;
 }
 
 @media (min-width: 1000px) {

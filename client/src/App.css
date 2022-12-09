@@ -11,18 +11,3 @@ main {
   /* margin-top: 1em; */
   gap: 2em;
 }
-/* .row {
-  display: flex;
-  flex-direction: row;
-}
-.column {
-  width: 100px;
-  height: 100px;
-  font-size: 40px;
-  cursor: pointer;
-  margin: 5px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #3f5e6d;
-  border: none;
-} */

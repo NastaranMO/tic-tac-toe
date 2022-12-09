@@ -1,3 +1,6 @@
+.players-list-container {
+  margin-bottom: 2em;
+}
 .players-list {
   display: flex;
   /* background-color: red; */
