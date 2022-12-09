@@ -32,7 +32,7 @@ You can see my Tic Tac Toe online at: ---
 
 ### Screenshot
 
-![](./src/assets/tic-tac-toe.png)
+![](./client/src/assets/tic-tac-toe.png)
 
 ### How to run?
 
