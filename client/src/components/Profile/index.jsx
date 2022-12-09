@@ -1,5 +1,6 @@
 import React from 'react'
 import './index.css'
+import { motion } from 'framer-motion'
 
 const Profile = ({ player }) => {
   console.log('player in profile', player)
@@ -8,7 +9,11 @@ const Profile = ({ player }) => {
       className='profile'
     >
       <div className='profile__text'>
-        <h1>Welcome, {player.username}!</h1>
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        >Welcome, {player.username}!</motion.h1>
         <p className='profile__text--paragraf'>This project designed and developed with Nodejs, Socket io and React.</p>
       </div>
       <div className='profile__boxItems'>
@@ -17,7 +22,7 @@ const Profile = ({ player }) => {
         <p className='profile-item profile-item--lose'>Lose: {player.lost}</p>
         <p className='profile-item profile-item--draw'>Draw: {player.draw}</p>
       </div>
-    </div>
+    </div >
   )
 
 }
