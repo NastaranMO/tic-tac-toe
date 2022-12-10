@@ -61,6 +61,8 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
       setWinner(data)
       if (data === 'draw') {
         store({ username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 })
+        setPlayer(prev => ({ ...prev, username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 }))
+
         return;
       }
       store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
