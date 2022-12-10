@@ -1,5 +1,5 @@
 import express from 'express'
-import * as dotenv from 'dotenv'
+import { config } from 'dotenv'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-dotenv.config()
+config()
 const port = process.env.PORT || 3000
 
 const app = express()
