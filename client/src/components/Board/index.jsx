@@ -38,6 +38,7 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
         :
         <Game
           players={players}
+          setPlayer={setPlayer}
           setPlayers={setPlayers}
           player={player}
           socket={socket}

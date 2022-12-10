@@ -8,7 +8,7 @@ import Timer from '../Timer'
 
 const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
 
-function Game({ players, setPlayers, player, socket, username, setIsGameBegin }) {
+function Game({ players, setPlayers, player, socket, username, setIsGameBegin, setPlayer }) {
   console.log('players from game===>', players)
 
   const keyCells = Array(9).fill(0).map((num, i) => num + i)
@@ -37,6 +37,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
       setWinner('draw')
       socket.emit('winner', { ...player, winner: 'draw' })
       store({ username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 })
+      setPlayer(prev => ({ ...prev, username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 }))
       return;
     }
 
@@ -45,6 +46,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin })
 
       setWinner(player.symbol)
       store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 })
+      setPlayer(prev => ({ ...prev, username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 }))
       setIsTurn(false)
       socket.emit('winner', { ...player, winner: player.symbol })
     }
