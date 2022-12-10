@@ -4,7 +4,7 @@
   "description": "I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io and Framer Motion.",
   "main": "index.js",
   "scripts": {
-    "build": "cd client && npm run build && (cd ../server && npm install)",
+    "build": "cd client && npm install && npm run build && (cd ../server && npm install)",
     "start": "cd server && npm start"
   },
   "repository": {
