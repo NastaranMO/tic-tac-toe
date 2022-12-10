@@ -9,7 +9,7 @@ const Main = ({ player, setPlayers, setPlayer, addPlayers, setIsGameBegin }) => 
 
   const joinRoomOnSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(process.env.REACT_APP_BASE_URL)
+    console.log(process.env.REACT_APP_BASE_URL);
     // socket.emit('join_game', { room, username })
     const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/game/${player.username}`);
     setPlayers(data.players)
