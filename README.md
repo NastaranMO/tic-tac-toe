@@ -28,6 +28,7 @@ You can see my Tic Tac Toe online at: ---
 - Reactjs
 - Nodejs
 - Socket.io
+- Express
 - Framer Motion
 - BEM css naming convention
 
@@ -36,13 +37,13 @@ You can see my Tic Tac Toe online at: ---
 1. Start `tic-tac-toe`-application and ensure that it is running on `http://localhost:3000`
 2. Run the backend
 
-    ```bash
-    cd ../server
-    npm i
-    npm start
-    ```
+   ```bash
+   cd ../server
+   npm i
+   npm start
+   ```
 
 ### Screenshot
 
 <!-- ![](./client/src/assests/tic-tac-toe.png) -->
-<img src="./client/src/assests/tic-tac-toe.png" alt="Kitten" title="A cute kitten" width="400" height="400" style="border-radious: 5px;" /> 
+<img src="./client/src/assests/tic-tac-toe.png" alt="Kitten" title="A cute kitten" width="400" height="400" style="border-radious: 5px;" />

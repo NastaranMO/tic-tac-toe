@@ -10,7 +10,7 @@ import Login from './components/Login';
 import axios from 'axios'
 // import Modal from './components/Modal';
 
-const socket = io.connect('http://localhost:3001');
+const socket = io.connect(process.env.REACT_APP_BASE_URL);
 
 const checkIsGameBegin = (players) => players.length === 2
 
