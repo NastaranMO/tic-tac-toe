@@ -4,11 +4,15 @@ import Profile from '../Profile'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
+import { useState } from 'react'
 
 const checkIsGameBegin = (players) => players.length === 2
 
 const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBegin, socket }) => {
   // console.log('From Main compomnent', players, player)
+  const [isOpponant, setIsOpponant] = useState(false)
+  const [msg, setMsg] = useState('')
+  const [isClicked, setIsClicked] = useState(false)
 
   const joinRoomOnSubmitHandler = async (e) => {
     e.preventDefault();
@@ -17,6 +21,8 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
       socket.emit('connect-game', { ...player, isBegin: false });
       socket.emit('start_game', player.username);
     }
+    setMsg('')
+    setIsOpponant(true)
   }
 
   useEffect(() => {
@@ -29,7 +35,15 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
         setIsGameBegin(true)
       }
     })
-  })
+    if (isOpponant) {
+      setTimeout(() => {
+        setIsOpponant(false)
+        setMsg('We couldnt find any apponant please try again!')
+        //remove from socket
+      }, 10000);
+    }
+
+  }, [socket, isOpponant])
 
   return (
     <div className='box-container'>
@@ -38,11 +52,14 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
         <motion.button
           type="submit"
           className='box-btn--match'
-          whileHover={{ scale: 1.04 }}
+          whileHover={{ scale: !isOpponant ? 1.04 : 1 }}
+          disabled={isOpponant ? true : false}
         >
-          Find a match
+          {isOpponant ? 'Looking for apponant...' : 'Find a match'}
         </motion.button>
       </form>
+      {isOpponant && <div>Waiting for apponant...</div>}
+      {msg && <div>{msg}</div>}
     </div>
   )
 }
