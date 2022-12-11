@@ -40,6 +40,7 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
         ?
         <MainPage
           isCurrentPlayer={true}
+          isGameBegin={isGameBegin}
           setPlayers={setPlayers}
           player={player}
           players={players}

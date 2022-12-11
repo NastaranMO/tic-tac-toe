@@ -2,13 +2,13 @@ import React from 'react'
 import './index.css'
 import Profile from '../Profile'
 import axios from 'axios'
-import { motion } from 'framer-motion'
+import { isDragActive, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
 const checkIsGameBegin = (players) => players.length === 2
 
-const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBegin, socket }) => {
+const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBegin, socket, isGameBegin }) => {
   // console.log('From Main compomnent', players, player)
   const [isOpponant, setIsOpponant] = useState(false)
   const [msg, setMsg] = useState('')
@@ -35,13 +35,6 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
         setIsGameBegin(true)
       }
     })
-    if (isOpponant) {
-      setTimeout(() => {
-        setIsOpponant(false)
-        setMsg('We couldnt find any apponant please try again!')
-        //remove from socket
-      }, 10000);
-    }
 
   }, [socket, isOpponant])
 
