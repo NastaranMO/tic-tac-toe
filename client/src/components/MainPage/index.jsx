@@ -11,8 +11,7 @@ const checkIsGameBegin = (players) => players.length === 2
 const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBegin, socket, isGameBegin }) => {
   // console.log('From Main compomnent', players, player)
   const [isOpponant, setIsOpponant] = useState(false)
-  const [msg, setMsg] = useState('')
-  const [isClicked, setIsClicked] = useState(false)
+  const [showTimer, setShowTimer] = useState(false)
 
   const joinRoomOnSubmitHandler = async (e) => {
     e.preventDefault();
@@ -20,10 +19,10 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
     if (!data) {
       socket.emit('connect-game', { ...player, isBegin: false });
       socket.emit('start_game', player.username);
+      setIsOpponant(true)
     }
-    setMsg('')
-    setIsOpponant(true)
   }
+
 
   useEffect(() => {
     socket.on('start', (data) => {
@@ -31,12 +30,15 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
       setPlayers(data.players)
       addPlayers(data)
       if (data.players && checkIsGameBegin(data.players)) {
-        console.log('Why.......................')
-        setIsGameBegin(true)
+        setShowTimer(true)
+        setTimeout(() => {
+          console.log('Why.......................')
+          setIsGameBegin(true)
+          setIsOpponant(false)
+        }, 6000);
       }
     })
-
-  }, [socket, isOpponant])
+  }, [socket])
 
   return (
     <div className='box-container'>
@@ -52,7 +54,14 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
         </motion.button>
       </form>
       {isOpponant && <div>Waiting for apponant...</div>}
-      {msg && <div>{msg}</div>}
+      {showTimer &&
+        <motion.div
+          animate={{ scale: 1.2 }}
+          transition={{ yoyo: 20, duration: 1.2 }}
+          className="timer"
+        >
+          <h2>Waiting for join...</h2>
+        </motion.div>}
     </div>
   )
 }

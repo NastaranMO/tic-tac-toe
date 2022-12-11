@@ -14,7 +14,7 @@ const getData = () => JSON.parse(localStorage.getItem('tic-tac-toe')) || '';
 
 
 function Game({ players, setPlayers, player, socket, username, setIsGameBegin, setPlayer }) {
-  // console.log('players from game===>', players)
+  console.log('players from game===>', players)
 
   const keyCells = Array(9).fill(0).map((num, i) => num + i)
   const [board, setBoard] = useState(Array(9).fill(''));
@@ -44,7 +44,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
     }
 
     if (checkWinner) {
-      // console.log('winner in checkWinner:', player.symbol, winnerPattern, players)
+      console.log('winner in checkWinner:', player.symbol, winnerPattern, players)
       const newPlayer = { username: newData.username, win: newData.win + 1, lost: newData.lost, draw: newData.draw, total: newData.total + 1 };
       store(newPlayer)
       setPlayer(prev => ({ ...prev, ...newPlayer }))
@@ -59,10 +59,10 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
 
   useEffect(() => {
     socket.on('start_game', (data) => {
-      console.log('data from start game event===>', data)
+      console.log('data')
     })
     socket.on('winner_sent', (data) => {
-      // console.log('winner in winner sent', data)
+      console.log('winner in winner sent', data)
       setWinner(data)
       if (data === 'draw') {
         const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }

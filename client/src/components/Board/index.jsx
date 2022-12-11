@@ -7,11 +7,6 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
   const [isGameBegin, setIsGameBegin] = useState(false)
   const [start, setStart] = useState(false)
 
-  const timerHandler = () => {
-    setTimeout(() => {
-
-    }, 5000);
-  }
 
   useEffect(() => {
     socket.on('new_player_connected', (data) => {

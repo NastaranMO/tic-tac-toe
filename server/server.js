@@ -107,6 +107,11 @@ io.on('connection', (socket) => {
     // clients = clients.filter(c => c.room !== data.room)
   })
 
+  socket.on('remove_user', (data) => {
+    clients = clients.filter(c => c.room === data)
+    console.log('remove', clients)
+  })
+
   socket.on('disconnect', () => {
     const disconnectClient = clients.find(c => c.players.find(p => p.id === socket.id))
     const room = disconnectClient?.room
