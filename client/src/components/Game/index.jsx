@@ -65,7 +65,6 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
         const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }
         store(newPlayer)
         setPlayer(prev => ({ ...prev, ...newPlayer }))
-
         return;
       }
       const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost + 1, draw: newData.draw, total: newData.total + 1 }
