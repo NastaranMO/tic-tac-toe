@@ -27,14 +27,12 @@ function App() {
     setShowGame(true);
   }
 
-  // console.log('players from App.js===>', players)
-
   useEffect(() => {
     const playerData = getData()
     if (playerData) {
       setPlayer(playerData)
       setShowGame(true)
-      socket.emit('connect-game', { ...playerData, isBegin: false });
+      // socket.emit('connect-game', { ...playerData, isBegin: false });
     }
 
   }, []);

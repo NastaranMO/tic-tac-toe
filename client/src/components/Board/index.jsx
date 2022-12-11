@@ -16,8 +16,8 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
   useEffect(() => {
     socket.on('new_player_connected', (data) => {
       console.log('data is coming', data);
-      setPlayers(data.players);
-      addPlayers(data)
+      // setPlayers(data.players);
+      // addPlayers(data)
     });
 
     socket.on('user_left', () => {

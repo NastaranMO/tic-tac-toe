@@ -83,9 +83,13 @@ io.on('connection', (socket) => {
 
     clients.map(c => console.log('c', c))
 
-    socket.to(room).emit('new_player_connected', client, clients.length, client.players.length)
+    // socket.to(room).emit('new_player_connected', client)
   })
 
+  socket.on('start_game', (data) => {
+    const client = clients.find(c => c.players.find(p => p.username === data))
+    io.in(client.room).emit('start', client)
+  })
   socket.on('move', (data) => {
     // console.log(data.room)
     const { players: updatedClients } = clients.find(c => c.room === data.room)
@@ -97,6 +101,7 @@ io.on('connection', (socket) => {
     console.log(data.room)
     console.log(`winner============> ${data.winner}`)
     clients.map(c => console.log('w', c))
+    clients = clients.filter(c => c.room !== data.room)
 
     socket.to(data.room).emit('winner_sent', data.winner)
     // clients = clients.filter(c => c.room !== data.room)
@@ -119,7 +124,7 @@ io.on('connection', (socket) => {
 
 app.get('/game/:username', (req, res) => {
   const client = clients.find(c => c.players.find(p => p.username === req.params.username))
-  // console.log('api=====>', client)
+  console.log('api=====>', client)
   res.json(client)
 })
 
