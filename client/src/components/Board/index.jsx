@@ -21,15 +21,18 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
     });
 
     socket.on('user_left', () => {
+      console.log('user left')
       setPlayers([])
       setIsGameBegin(false)
     })
+
+    // if (players.length === 2) setIsGameBegin(true)
 
   }, [socket, isGameBegin]);
 
   // console.log('players from board==>', players)
   // console.log('player from board==>', player)
-  console.log('is game begin?==>', isGameBegin)
+  // console.log('is game begin?==>', isGameBegin)
 
   return (
     <div>
@@ -39,6 +42,7 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
           isCurrentPlayer={true}
           setPlayers={setPlayers}
           player={player}
+          players={players}
           setPlayer={setPlayer}
           addPlayers={addPlayers}
           setIsGameBegin={setIsGameBegin}

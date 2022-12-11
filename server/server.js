@@ -75,9 +75,7 @@ io.on('connection', (socket) => {
 
   socket.on('connect-game', (data) => {
     console.log('data===========>', data)
-    if (data.room) {
-      return
-    }
+
     const [newPlayer, room] = createPlayer(socket, data)
     const client = clients.find(c => c.room === room)
     client.players.push(newPlayer)
@@ -85,7 +83,7 @@ io.on('connection', (socket) => {
 
     clients.map(c => console.log('c', c))
 
-    socket.to(room).emit('new_player_connected', client)
+    socket.to(room).emit('new_player_connected', client, clients.length, client.players.length)
   })
 
   socket.on('move', (data) => {
@@ -98,7 +96,10 @@ io.on('connection', (socket) => {
   socket.on('winner', (data) => {
     console.log(data.room)
     console.log(`winner============> ${data.winner}`)
+    clients.map(c => console.log('w', c))
+
     socket.to(data.room).emit('winner_sent', data.winner)
+    // clients = clients.filter(c => c.room !== data.room)
   })
 
   socket.on('disconnect', () => {
@@ -108,6 +109,7 @@ io.on('connection', (socket) => {
     if (room) {
       clients = clients.filter(c => c.room !== room)
       socket.to(room).emit('user_left', clients)
+      // io.in(room).emit('user_left', clients)
     }
 
     console.log('clients disconnected', clients)

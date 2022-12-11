@@ -34,7 +34,7 @@ function App() {
     if (playerData) {
       setPlayer(playerData)
       setShowGame(true)
-      // socket.emit('connect-game', { ...playerData, isBegin: false });
+      socket.emit('connect-game', { ...playerData, isBegin: false });
     }
 
   }, []);
