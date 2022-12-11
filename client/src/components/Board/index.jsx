@@ -5,12 +5,19 @@ import Game from '../Game'
 const Board = ({ socket, player, setPlayer, addPlayers }) => {
   const [players, setPlayers] = useState([]);
   const [isGameBegin, setIsGameBegin] = useState(false)
+  const [start, setStart] = useState(false)
+
+  const timerHandler = () => {
+    setTimeout(() => {
+
+    }, 5000);
+  }
 
   useEffect(() => {
     socket.on('new_player_connected', (data) => {
       console.log('data is coming', data);
       setPlayers(data.players);
-      addPlayers(data, setIsGameBegin)
+      addPlayers(data)
     });
 
     socket.on('user_left', () => {
@@ -18,10 +25,11 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
       setIsGameBegin(false)
     })
 
-  }, [socket]);
+  }, [socket, isGameBegin]);
 
-  console.log('players from board==>', players)
-  console.log('player from board==>', player)
+  // console.log('players from board==>', players)
+  // console.log('player from board==>', player)
+  console.log('is game begin?==>', isGameBegin)
 
   return (
     <div>
@@ -34,6 +42,7 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
           setPlayer={setPlayer}
           addPlayers={addPlayers}
           setIsGameBegin={setIsGameBegin}
+          socket={socket}
         />
         :
         <Game

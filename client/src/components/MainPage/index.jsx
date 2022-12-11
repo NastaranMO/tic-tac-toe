@@ -4,16 +4,22 @@ import Profile from '../Profile'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 
-const Main = ({ player, setPlayers, setPlayer, addPlayers, setIsGameBegin }) => {
+const checkIsGameBegin = (players) => players.length === 2
+
+const Main = ({ player, setPlayers, setPlayer, addPlayers, setIsGameBegin, socket }) => {
   console.log('From Main compomnent', player)
 
   const joinRoomOnSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(process.env.REACT_APP_BASE_URL);
+    socket.emit('connect-game', player);
     // socket.emit('join_game', { room, username })
     const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/game/${player.username}`);
     setPlayers(data.players)
-    addPlayers(data, setIsGameBegin)
+    addPlayers(data)
+    if (data.players && checkIsGameBegin(data.players)) {
+      console.log('Why.......................')
+      setIsGameBegin(true)
+    }
   }
 
   return (

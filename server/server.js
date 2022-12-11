@@ -4,11 +4,11 @@ import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
 import { v4 } from 'uuid'
-import path from 'path'
-import { fileURLToPath } from 'url'
+// import path from 'path'
+// import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 
 config()
 const port = process.env.PORT || 3000
@@ -18,8 +18,8 @@ const app = express()
 app.use(cors())
 const server = http.createServer(app)
 
-const buildPath = path.join(__dirname, '../client', 'build')
-app.use(express.static(buildPath))
+// const buildPath = path.join(__dirname, '../client', 'build')
+// app.use(express.static(buildPath))
 
 let clients = []
 
@@ -74,6 +74,10 @@ io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`)
 
   socket.on('connect-game', (data) => {
+    console.log('data===========>', data)
+    if (data.room) {
+      return
+    }
     const [newPlayer, room] = createPlayer(socket, data)
     const client = clients.find(c => c.room === room)
     client.players.push(newPlayer)
@@ -85,7 +89,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('move', (data) => {
-    console.log(data.room)
+    // console.log(data.room)
     const { players: updatedClients } = clients.find(c => c.room === data.room)
     const x = updatedClients.map(p => p.id === socket.id ? ({ ...p, ...data, turn: !p.turn }) : ({ ...p, ...data, turn: !p.turn }))
     socket.to(data.room).emit('move_sent', ...x)
@@ -100,7 +104,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     const disconnectClient = clients.find(c => c.players.find(p => p.id === socket.id))
     const room = disconnectClient?.room
-    console.log('disconnetct room', room)
+    // console.log('disconnetct room', room)
     if (room) {
       clients = clients.filter(c => c.room !== room)
       socket.to(room).emit('user_left', clients)
@@ -113,7 +117,7 @@ io.on('connection', (socket) => {
 
 app.get('/game/:username', (req, res) => {
   const client = clients.find(c => c.players.find(p => p.username === req.params.username))
-  console.log('api=====>', client)
+  // console.log('api=====>', client)
   res.json(client)
 })
 

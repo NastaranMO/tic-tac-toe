@@ -6,22 +6,22 @@ import Modal from '../Modal';
 import Cell from '../Cell';
 import Timer from '../Timer'
 
-const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
+const store = (data) => {
+  console.log('store===>', data)
+  localStorage.setItem('tic-tac-toe', JSON.stringify(data))
+}
+const getData = () => JSON.parse(localStorage.getItem('tic-tac-toe')) || '';
+
 
 function Game({ players, setPlayers, player, socket, username, setIsGameBegin, setPlayer }) {
-  console.log('players from game===>', players)
+  // console.log('players from game===>', players)
 
   const keyCells = Array(9).fill(0).map((num, i) => num + i)
   const [board, setBoard] = useState(Array(9).fill(''));
   const [winner, setWinner] = useState('')
   const [isTurn, setIsTurn] = useState(player.turn)
   const [showTimer, setShowTimer] = useState(0);
-
-  const timerHandler = () => {
-    setTimeout(() => {
-
-    }, 5000);
-  }
+  const newData = getData()
 
   const moveHandler = async (idx) => {
     board[idx] = player.symbol;
@@ -29,6 +29,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
     socket.emit('move', { ...player, board });
 
     const updatedPlayers = players.map(p => ({ ...p, turn: !p.turn }))
+    const currentPlayer = updatedPlayers.findIndex(p => p.username === player.username)
     setPlayers(updatedPlayers)
     // console.log('==========>', isWinner(board, player.symbol))
     const [checkWinner, winnerPattern] = isWinner(board, player.symbol);
@@ -36,23 +37,24 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
     if (isDraw(board) && !checkWinner) {
       setWinner('draw')
       socket.emit('winner', { ...player, winner: 'draw' })
-      store({ username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 })
-      setPlayer(prev => ({ ...prev, username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 }))
+      const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }
+      store(newPlayer)
+      setPlayer(prev => ({ ...prev, ...newPlayer }))
       return;
     }
 
     if (checkWinner) {
-      console.log('winner:', player.symbol, winnerPattern)
-
-      setWinner(player.symbol)
-      store({ username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 })
-      setPlayer(prev => ({ ...prev, username: player.username, win: player.win + 1, lost: player.lost, draw: player.draw, total: player.total + 1 }))
+      console.log('winner in checkWinner:', player.symbol, winnerPattern, players)
+      const newPlayer = { username: newData.username, win: newData.win + 1, lost: newData.lost, draw: newData.draw, total: newData.total + 1 };
+      store(newPlayer)
+      setPlayer(prev => ({ ...prev, ...newPlayer }))
       setIsTurn(false)
       socket.emit('winner', { ...player, winner: player.symbol })
+      setWinner(player.symbol)
     }
 
     setIsTurn(prev => !prev)
-    console.log('board:', board);
+    // console.log('board:', board);
   };
 
   useEffect(() => {
@@ -60,17 +62,19 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
       console.log('winner in winner sent', data)
       setWinner(data)
       if (data === 'draw') {
-        store({ username: player.username, win: player.win, lost: player.lost, draw: player.draw + 1, total: player.total + 1 })
-        setPlayer(prev => ({ ...prev, username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 }))
+        const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }
+        store(newPlayer)
+        setPlayer(prev => ({ ...prev, ...newPlayer }))
 
         return;
       }
-      store({ username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 })
-      setPlayer(prev => ({ ...prev, username: player.username, win: player.win, lost: player.lost + 1, draw: player.draw, total: player.total + 1 }))
+      const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost + 1, draw: newData.draw, total: newData.total + 1 }
+      store(newPlayer)
+      setPlayer(prev => ({ ...prev, ...newPlayer }))
     })
 
     socket.on('move_sent', (data) => {
-      console.log('move sent event called', data)
+      // console.log('move sent event called', data)
       setBoard(data.board)
       setIsTurn(!data.turn)
       const updatedPlayers = players.map(p => p.username === username ? ({ ...p, turn: !data.turn }) : ({ ...p, turn: data.turn }))
