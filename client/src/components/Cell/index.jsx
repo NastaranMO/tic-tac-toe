@@ -9,7 +9,7 @@ const Cell = ({ cell, moveHandler, id, isTurn }) => {
     <motion.button
       initial={{ y: '100vw' }}
       animate={{ y: 0 }}
-      transition={{ duration: 1.5, delay: .1 }}
+      transition={{ duration: 1.2, delay: .1 }}
       className={cell !== '' ? 'cell cell-disable' : 'cell'}
       onClick={() => moveHandler(id)}
       disabled={(cell !== '' || !isTurn) && true}
