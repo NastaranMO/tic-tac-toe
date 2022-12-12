@@ -54,7 +54,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
       {showTimer &&
         <motion.div
           animate={{ scale: 1.2 }}
-          transition={{ yoyo: 20, duration: 1.2 }}
+          transition={{ repeat: 20, duration: 1.2 }}
           className="timer"
         >
           <h2>Waiting for join...</h2>
