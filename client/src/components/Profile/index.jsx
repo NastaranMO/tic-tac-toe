@@ -3,7 +3,6 @@ import './index.css'
 import { motion } from 'framer-motion'
 
 const Profile = ({ player }) => {
-  console.log('player in profile', player)
   return (
     <div
       className='profile'

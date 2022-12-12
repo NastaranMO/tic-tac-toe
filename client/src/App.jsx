@@ -6,12 +6,8 @@ import { io } from 'socket.io-client';
 import Header from './components/Header';
 import Board from './components/Board';
 import Login from './components/Login';
-import axios from 'axios'
-// import Modal from './components/Modal';
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
-
-// const checkIsGameBegin = (players) => players.length === 2
 
 const getData = () => JSON.parse(localStorage.getItem('tic-tac-toe')) || '';
 const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
@@ -32,7 +28,6 @@ function App() {
     if (playerData) {
       setPlayer(playerData)
       setShowGame(true)
-      // socket.emit('connect-game', { ...playerData, isBegin: false });
     }
 
   }, []);

@@ -13,7 +13,6 @@ const Modal = ({ showModal, winner, setIsGameBegin }) => {
         <div className='modal-body'>
           <button className='modal-btn' onClick={() => {
             setIsGameBegin(false)
-            // window.location.href = '/'
           }}>Go to profile</button>
         </div>
       </div>

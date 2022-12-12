@@ -13,7 +13,6 @@ const containerVariants = {
 }
 
 const Status = ({ players, isTurn }) => {
-  // console.log('players from status', players, isTurn)
   return (
     <motion.div
       variants={containerVariants}

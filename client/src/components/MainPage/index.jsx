@@ -8,8 +8,7 @@ import { useState } from 'react'
 
 const checkIsGameBegin = (players) => players.length === 2
 
-const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBegin, socket, isGameBegin }) => {
-  // console.log('From Main compomnent', players, player)
+const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
   const [isOpponant, setIsOpponant] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
 
@@ -26,13 +25,11 @@ const Main = ({ player, players, setPlayers, setPlayer, addPlayers, setIsGameBeg
 
   useEffect(() => {
     socket.on('start', (data) => {
-      console.log('start========>', data)
       setPlayers(data.players)
       addPlayers(data)
       if (data.players && checkIsGameBegin(data.players)) {
         setShowTimer(true)
         setTimeout(() => {
-          console.log('Why.......................')
           setIsGameBegin(true)
           setIsOpponant(false)
         }, 6000);

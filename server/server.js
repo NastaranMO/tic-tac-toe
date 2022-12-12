@@ -1,5 +1,5 @@
 import express from 'express'
-import { config } from 'dotenv'
+import dotenv from 'dotenv'
 import http from 'http'
 import { Server } from 'socket.io'
 import cors from 'cors'
@@ -10,16 +10,18 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-config()
+dotenv.config()
 const port = process.env.PORT || 3000
 
 const app = express()
 
+if (process.env.NODE_ENV === 'production') {
+  const buildPath = path.join(__dirname, '../client', 'build')
+  app.use(express.static(buildPath))
+}
+
 app.use(cors())
 const server = http.createServer(app)
-
-const buildPath = path.join(__dirname, '../client', 'build')
-app.use(express.static(buildPath))
 
 let clients = []
 
@@ -104,7 +106,6 @@ io.on('connection', (socket) => {
     clients = clients.filter(c => c.room !== data.room)
 
     socket.to(data.room).emit('winner_sent', data.winner)
-    // clients = clients.filter(c => c.room !== data.room)
   })
 
   socket.on('remove_user', (data) => {
