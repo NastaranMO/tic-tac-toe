@@ -11,7 +11,6 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
   const [board, setBoard] = useState(Array(9).fill(''));
   const [winner, setWinner] = useState('')
   const [isTurn, setIsTurn] = useState(player.turn)
-  const [showTimer, setShowTimer] = useState(0);
 
   const newData = getData()
 
@@ -71,15 +70,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
     if (winner) {
       setIsTurn(false)
     }
-
-    if (showTimer <= 5) {
-      const tId = setTimeout(() => {
-        setShowTimer(prev => prev + 1)
-      }, 1000);
-
-      return () => clearTimeout(tId)
-    }
-  }, [socket, winner, showTimer])
+  }, [socket, winner])
 
   return (
     <>
