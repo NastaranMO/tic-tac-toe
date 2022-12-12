@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.css'
 import Profile from '../Profile'
 import axios from 'axios'
-import { isDragActive, motion } from 'framer-motion'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 const checkIsGameBegin = (players) => players.length === 2
+const hasGameStart = (players) => players && checkIsGameBegin(players)
 
 const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
   const [isOpponant, setIsOpponant] = useState(false)
@@ -14,6 +13,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
 
   const joinRoomOnSubmitHandler = async (e) => {
     e.preventDefault();
+
     const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/game/${player.username}`);
     if (!data) {
       socket.emit('connect-game', { ...player, isBegin: false });
@@ -22,17 +22,19 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
     }
   }
 
-
   useEffect(() => {
     socket.on('start', (data) => {
       setPlayers(data.players)
       addPlayers(data)
-      if (data.players && checkIsGameBegin(data.players)) {
+
+      if (hasGameStart(data.players)) {
         setShowTimer(true)
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           setIsGameBegin(true)
           setIsOpponant(false)
         }, 6000);
+
+        return () => clearTimeout(timeoutId)
       }
     })
   }, [socket])

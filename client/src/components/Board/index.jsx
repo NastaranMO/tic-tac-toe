@@ -12,18 +12,14 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
       setIsGameBegin(false)
     })
   }, [socket, isGameBegin]);
-
+  // player, setPlayers, addPlayers, setIsGameBegin, socket
   return (
     <div>
       {!isGameBegin
         ?
         <MainPage
-          isCurrentPlayer={true}
-          isGameBegin={isGameBegin}
           setPlayers={setPlayers}
           player={player}
-          players={players}
-          setPlayer={setPlayer}
           addPlayers={addPlayers}
           setIsGameBegin={setIsGameBegin}
           socket={socket}
