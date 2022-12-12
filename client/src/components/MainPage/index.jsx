@@ -57,7 +57,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
           {isOpponant ? 'Looking for apponant...' : 'Find a match'}
         </motion.button>
       </form>
-      {isOpponant && <div>Waiting for apponant...</div>}
+      {isOpponant && <div>Waiting for opponent...</div>}
       {showTimer &&
         <motion.div
           animate={{ scale: 1.2 }}
@@ -65,7 +65,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
           className="timer"
         >
           <h2>Please waiting for join...</h2>
-          <p>Your oponent is <b>{opponent}</b></p>
+          <p>Your opponent is <b>{opponent}</b></p>
         </motion.div>}
     </div>
   )
