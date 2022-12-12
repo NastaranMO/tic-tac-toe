@@ -14,10 +14,11 @@
 
 .profile__text h1 {
   margin: 0;
+  font-size: 1.8em;
 }
 
 .profile__text--paragraf {
-  line-height: 1.7em;
+  display: none;
 }
 
 .profile__boxItems {
@@ -30,11 +31,12 @@
 .profile-item {
   margin: 0;
   width: 46%;
-  height: 3.5em;
+  font-size: 10px;
+  height: 4em;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 3px;
   color: white;
 }
 .profile-item--pink {
@@ -72,5 +74,18 @@
   .profile-item {
     height: 4em;
     width: 47%;
+  }
+}
+@media (min-width: 600px) {
+  .profile__text--paragraf {
+    line-height: 1.7em;
+    display: inline-block;
+  }
+  .profile-item {
+    width: 46%;
+    font-size: 16px;
+  }
+  .profile__text h1 {
+    font-size: 2.1em;
   }
 }

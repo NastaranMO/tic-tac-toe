@@ -27,6 +27,11 @@
 .disable-game {
   opacity: 0.2;
 }
+@media (min-width: 400px) {
+  .game-container {
+    width: 40vw;
+  }
+}
 @media (min-width: 600px) {
   .game-container {
     width: 50vw;
