@@ -24,14 +24,18 @@
   left: 0;
   bottom: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  background-color: grey;
+  background-color: #1f3641;
   opacity: 0.8;
-  color: black;
+  color: #a8bfc9;
   font-weight: bold;
 }
-
+.timer b {
+  text-transform: capitalize;
+  color: #ffc860;
+}
 @media (min-width: 1000px) {
 }

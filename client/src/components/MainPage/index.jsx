@@ -8,6 +8,7 @@ import hasGameStart from '../../utils/game'
 const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
   const [isOpponant, setIsOpponant] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
+  const [opponent, setOpponent] = useState('')
 
   const joinRoomOnSubmitHandler = async (e) => {
     e.preventDefault();
@@ -27,9 +28,11 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
 
       if (hasGameStart(data.players)) {
         setShowTimer(true)
+        setIsOpponant(false)
+        const opponent = data.players.find(p => p.username !== player.username)
+        setOpponent(opponent.username)
         const timeoutId = setTimeout(() => {
           setIsGameBegin(true)
-          setIsOpponant(false)
         }, 6000);
 
         return () => clearTimeout(timeoutId)
@@ -57,7 +60,8 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
           transition={{ repeat: 20, duration: 1.2 }}
           className="timer"
         >
-          <h2>Waiting for join...</h2>
+          <h2>Please waiting for join...</h2>
+          <p>Your oponent is <b>{opponent}</b></p>
         </motion.div>}
     </div>
   )
