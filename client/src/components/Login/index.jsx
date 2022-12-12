@@ -1,7 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.css'
-import Header from '../Header';
-import { useState } from 'react';
 import { motion } from 'framer-motion'
 import { store } from '../../utils/store'
 
