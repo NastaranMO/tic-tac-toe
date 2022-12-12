@@ -3,9 +3,7 @@ import './index.css'
 import Profile from '../Profile'
 import axios from 'axios'
 import { motion } from 'framer-motion'
-
-const checkIsGameBegin = (players) => players.length === 2
-const hasGameStart = (players) => players && checkIsGameBegin(players)
+import hasGameStart from '../../utils/game'
 
 const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
   const [isOpponant, setIsOpponant] = useState(false)
