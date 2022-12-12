@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './index.css'
-import { isWinner, isDraw } from '../../winner'
+import { isWinner, isDraw } from '../../utils/winner'
 import Status from '../Status';
 import Modal from '../Modal';
 import Cell from '../Cell';
-import Timer from '../Timer'
-
-const store = (data) => {
-  localStorage.setItem('tic-tac-toe', JSON.stringify(data))
-}
-const getData = () => JSON.parse(localStorage.getItem('tic-tac-toe')) || '';
-
+import { store, getData } from '../../utils/store'
 
 function Game({ players, setPlayers, player, socket, username, setIsGameBegin, setPlayer }) {
   const keyCells = Array(9).fill(0).map((num, i) => num + i)

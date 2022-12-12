@@ -2,16 +2,12 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 
 import { io } from 'socket.io-client';
-// eslint-disable-next-line no-unused-vars
 import Header from './components/Header';
 import Board from './components/Board';
 import Login from './components/Login';
+import { store, getData } from './utils/store'
 
 const socket = io.connect(process.env.REACT_APP_BASE_URL);
-
-const getData = () => JSON.parse(localStorage.getItem('tic-tac-toe')) || '';
-const store = (data) => localStorage.setItem('tic-tac-toe', JSON.stringify(data))
-
 
 function App() {
   const [player, setPlayer] = useState('');

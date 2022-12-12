@@ -3,10 +3,11 @@ import './index.css'
 import Header from '../Header';
 import { useState } from 'react';
 import { motion } from 'framer-motion'
+import { store } from '../../utils/store'
 
 
 
-const Login = ({ setPlayer, store, setShowGame, getData }) => {
+const Login = ({ setPlayer, setShowGame }) => {
   const [username, setUsername] = useState('')
 
   const loginSubmitHandler = (e) => {
