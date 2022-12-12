@@ -25,7 +25,6 @@ function App() {
       setPlayer(playerData)
       setShowGame(true)
     }
-
   }, []);
 
   return (
@@ -41,7 +40,7 @@ function App() {
             addPlayers={addPlayers}
           />
           :
-          <Login setPlayer={setPlayer} store={store} getData={getData} setShowGame={setShowGame} />
+          <Login setPlayer={setPlayer} setShowGame={setShowGame} />
       }
     </main>
   );

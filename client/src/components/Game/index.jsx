@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './index.css'
-import { isWinner, isDraw } from '../../utils/winner'
+import Cell from '../Cell';
 import Status from '../Status';
 import Modal from '../Modal';
-import Cell from '../Cell';
 import { store, getData } from '../../utils/store'
+import { isWinner, isDraw } from '../../utils/winner'
 
 function Game({ players, setPlayers, player, socket, username, setIsGameBegin, setPlayer }) {
   const keyCells = Array(9).fill(0).map((num, i) => num + i)

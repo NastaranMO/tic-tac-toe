@@ -12,7 +12,11 @@ const Login = ({ setPlayer, setShowGame }) => {
 
   const loginSubmitHandler = (e) => {
     e.preventDefault();
-    store({ username, win: 0, lost: 0, draw: 0, total: 0 });
+
+    const newPlayer = { username, win: 0, lost: 0, draw: 0, total: 0 }
+    setPlayer(newPlayer)
+    store(newPlayer);
+
     setShowGame(true)
   }
 
@@ -31,10 +35,7 @@ const Login = ({ setPlayer, setShowGame }) => {
           type="text"
           id="name"
           className='form__input'
-          onChange={(e) => {
-            setUsername(e.target.value);
-            setPlayer({ username: e.target.value, win: 0, lost: 0, draw: 0, total: 0 })
-          }}
+          onChange={(e) => setUsername(e.target.value)}
           placeholder="John..."
         />
         <button
