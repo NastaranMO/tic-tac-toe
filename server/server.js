@@ -84,8 +84,10 @@ io.on('connection', (socket) => {
     socket.join(room)
 
     clients.map(c => console.log('c', c))
+  })
 
-    // socket.to(room).emit('new_player_connected', client)
+  socket.on('disconnect_game', (data) => {
+    console.log('data from disconnet game===========>', data)
   })
 
   socket.on('start_game', (data) => {
@@ -129,6 +131,12 @@ io.on('connection', (socket) => {
 })
 
 app.get('/game/:username', (req, res) => {
+  const client = clients.find(c => c.players.find(p => p.username === req.params.username))
+  console.log('api=====>', client)
+  res.json(client)
+})
+
+app.get('/user/:username', (req, res) => {
   const client = clients.find(c => c.players.find(p => p.username === req.params.username))
   console.log('api=====>', client)
   res.json(client)

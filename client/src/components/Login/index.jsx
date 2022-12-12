@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './index.css'
 import { motion } from 'framer-motion'
 import { store } from '../../utils/store'
+import { v4 as uuid } from 'uuid'
 
 
 
@@ -11,7 +12,7 @@ const Login = ({ setPlayer, setShowGame }) => {
   const loginSubmitHandler = (e) => {
     e.preventDefault();
 
-    const newPlayer = { username, win: 0, lost: 0, draw: 0, total: 0 }
+    const newPlayer = { clientId: uuid(), username, win: 0, lost: 0, draw: 0, total: 0 }
     setPlayer(newPlayer)
     store(newPlayer);
 

@@ -12,7 +12,7 @@ const Board = ({ socket, player, setPlayer, addPlayers }) => {
       setIsGameBegin(false)
     })
   }, [socket, isGameBegin]);
-  // player, setPlayers, addPlayers, setIsGameBegin, socket
+
   return (
     <div>
       {!isGameBegin

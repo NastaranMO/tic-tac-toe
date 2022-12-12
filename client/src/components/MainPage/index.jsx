@@ -17,7 +17,12 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
     if (!data) {
       socket.emit('connect-game', { ...player, isBegin: false });
       socket.emit('start_game', player.username);
+      // const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/user/${player.username}`);
       setIsOpponant(true)
+      setTimeout(() => {
+        // setIsOpponant(false)
+        socket.emit('disconnect_game', player)
+      }, 1000);
     }
   }
 
