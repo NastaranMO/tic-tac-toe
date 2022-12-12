@@ -75,7 +75,7 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
   return (
     <>
       <div>
-        <Modal showModal={winner ? true : false} winner={winner} setIsGameBegin={setIsGameBegin} />
+        <Modal showModal={winner ? true : false} winner={winner} setIsGameBegin={setIsGameBegin} player={player} />
         <Status players={players} isTurn={isTurn} />
         <div className={isTurn ? 'game-container board-game--turn' : 'game-container board-game'}>
           <div className={player.symbol === 'X' ? 'board-game__container x' : 'board-game__container o'}>
