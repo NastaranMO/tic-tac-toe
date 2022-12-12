@@ -3,7 +3,7 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 ## Table of contents
 
 - [Demo](#demo)
-- [My process](#my-process)
+- [Specifications](#my-process)
 - [Built with](#built-with)
 - [How to run?](#how-to-run)
 
