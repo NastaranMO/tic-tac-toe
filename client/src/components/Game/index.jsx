@@ -73,9 +73,11 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
     }
 
     if (showTimer <= 5) {
-      setTimeout(() => {
+      const tId = setTimeout(() => {
         setShowTimer(prev => prev + 1)
       }, 1000);
+
+      return () => clearTimeout(tId)
     }
   }, [socket, winner, showTimer])
 
