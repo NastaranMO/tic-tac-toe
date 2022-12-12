@@ -18,11 +18,11 @@
 }
 .board-game__container.x .cell:hover:not(button.cell-disable) {
   background: url('../../assests/icon-x-outline.svg') no-repeat center;
-  background-color: #3f5e6d;
+  background-color: #284958;
 }
 .board-game__container.o .cell:hover:not(button.cell-disable) {
   background: url('../../assests/icon-o-outline.svg') no-repeat center;
-  background-color: #3f5e6d;
+  background-color: #284958;
 }
 .disable-game {
   opacity: 0.2;

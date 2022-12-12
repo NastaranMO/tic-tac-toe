@@ -5,9 +5,10 @@
   cursor: pointer;
   margin: 5px;
   border-radius: 10px;
-  background-color: #3f5e6d;
+  background-color: #284958;
   border: none;
-  border: 10px solid #3f5e6d;
+  border: 10px solid #284958;
+  box-shadow: 0px 5px black;
 }
 
 /* @media (min-width: 600px) {
