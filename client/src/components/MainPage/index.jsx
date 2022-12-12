@@ -9,19 +9,24 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
   const [isOpponant, setIsOpponant] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
   const [opponent, setOpponent] = useState('')
+  const [error, setError] = useState('')
 
   const joinRoomOnSubmitHandler = async (e) => {
     e.preventDefault();
-
+    setError('')
     const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/game/${player.username}`);
     if (!data) {
       socket.emit('connect-game', { ...player, isBegin: false });
       socket.emit('start_game', player.username);
-      // const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/user/${player.username}`);
+      setTimeout(async () => {
+        const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/user/${player.username}`);
+        if (data.players.length !== 2) {
+          await axios.delete(`${process.env.REACT_APP_BASE_URL}/user/${player.username}`);
+          setIsOpponant(false)
+          setError('We could not find any match, please try again!')
+        }
+      }, 8000);
       setIsOpponant(true)
-      setTimeout(() => {
-        socket.emit('disconnect_game', player)
-      }, 1000);
     }
   }
 
@@ -57,7 +62,9 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
           {isOpponant ? 'Looking for apponant...' : 'Find a match'}
         </motion.button>
       </form>
+      <br />
       {isOpponant && <div>Waiting for opponent...</div>}
+      {error && error}
       {showTimer &&
         <motion.div
           animate={{ scale: 1.2 }}

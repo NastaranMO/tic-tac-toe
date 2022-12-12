@@ -27,14 +27,14 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
     if (isDraw(board) && !checkWinner) {
       setWinner('draw')
       socket.emit('winner', { ...player, winner: 'draw' })
-      const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }
+      const newPlayer = { clientId: player.clientId, username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }
       store(newPlayer)
       setPlayer(prev => ({ ...prev, ...newPlayer }))
       return;
     }
 
     if (checkWinner) {
-      const newPlayer = { username: newData.username, win: newData.win + 1, lost: newData.lost, draw: newData.draw, total: newData.total + 1 };
+      const newPlayer = { clientId: player.clientId, username: newData.username, win: newData.win + 1, lost: newData.lost, draw: newData.draw, total: newData.total + 1 };
       store(newPlayer)
       setPlayer(prev => ({ ...prev, ...newPlayer }))
       setIsTurn(false)
@@ -49,12 +49,12 @@ function Game({ players, setPlayers, player, socket, username, setIsGameBegin, s
     socket.on('winner_sent', (data) => {
       setWinner(data)
       if (data === 'draw') {
-        const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }
+        const newPlayer = { clientId: player.clientId, username: newData.username, win: newData.win, lost: newData.lost, draw: newData.draw + 1, total: newData.total + 1 }
         store(newPlayer)
         setPlayer(prev => ({ ...prev, ...newPlayer }))
         return;
       }
-      const newPlayer = { username: newData.username, win: newData.win, lost: newData.lost + 1, draw: newData.draw, total: newData.total + 1 }
+      const newPlayer = { clientId: player.clientId, username: newData.username, win: newData.win, lost: newData.lost + 1, draw: newData.draw, total: newData.total + 1 }
       store(newPlayer)
       setPlayer(prev => ({ ...prev, ...newPlayer }))
     })

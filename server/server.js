@@ -86,16 +86,11 @@ io.on('connection', (socket) => {
     clients.map(c => console.log('c', c))
   })
 
-  socket.on('disconnect_game', (data) => {
-    console.log('data from disconnet game===========>', data)
-  })
-
   socket.on('start_game', (data) => {
     const client = clients.find(c => c.players.find(p => p.username === data))
     io.in(client.room).emit('start', client)
   })
   socket.on('move', (data) => {
-    // console.log(data.room)
     const { players: updatedClients } = clients.find(c => c.room === data.room)
     const x = updatedClients.map(p => p.id === socket.id ? ({ ...p, ...data, turn: !p.turn }) : ({ ...p, ...data, turn: !p.turn }))
     socket.to(data.room).emit('move_sent', ...x)
@@ -112,17 +107,15 @@ io.on('connection', (socket) => {
 
   socket.on('remove_user', (data) => {
     clients = clients.filter(c => c.room === data)
-    console.log('remove', clients)
   })
 
   socket.on('disconnect', () => {
     const disconnectClient = clients.find(c => c.players.find(p => p.id === socket.id))
     const room = disconnectClient?.room
-    // console.log('disconnetct room', room)
+
     if (room) {
       clients = clients.filter(c => c.room !== room)
       socket.to(room).emit('user_left', clients)
-      // io.in(room).emit('user_left', clients)
     }
 
     console.log('clients disconnected', clients)
@@ -132,14 +125,25 @@ io.on('connection', (socket) => {
 
 app.get('/game/:username', (req, res) => {
   const client = clients.find(c => c.players.find(p => p.username === req.params.username))
-  console.log('api=====>', client)
   res.json(client)
 })
 
 app.get('/user/:username', (req, res) => {
   const client = clients.find(c => c.players.find(p => p.username === req.params.username))
-  console.log('api=====>', client)
   res.json(client)
+})
+
+app.delete('/user/:username', (req, res) => {
+  const { username } = req.params
+  const currentClient = clients.find(c => c.players.find(p => p.username === username))
+  if (currentClient.players.length === 1) {
+    clients = clients.filter(c => c.room !== currentClient.room)
+    res.json()
+    return
+  }
+
+  clients = clients.map(c => c.room === currentClient.room ? ({ ...c, players: currentClient.players.find(p => p.username !== username) }) : c)
+  res.json()
 })
 
 server.listen(port, () => console.log(`Listen on port ${port}`))
