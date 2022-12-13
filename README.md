@@ -35,13 +35,18 @@ You can see my Tic Tac Toe online at: [Tic-Tac_Toe](https://tic-tac-toe-app.hero
 
 ### How to run?
 
-1. Start `tic-tac-toe`-application and ensure that it is running on `http://localhost:3000`
+1. Start `tic-tac-toe` application and ensure that it is running on `http://localhost:3000`
+   ```bash
+   cd client
+   npm i
+   npm start
+   ```
 2. Run the backend
 
    ```bash
    cd ../server
    npm i
-   npm start
+   npm run start-dev
    ```
 
 ### Screenshot
