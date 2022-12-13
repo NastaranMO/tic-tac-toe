@@ -8,6 +8,7 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 - [How to run?](#how-to-run)
 
 ## Overview
+https://github.com/NastaranMO/tic-tac-toe/blob/main/client/src/assests/Screen-Recording-2022-12-13-at-1.gif
 
 ### Demo
 
