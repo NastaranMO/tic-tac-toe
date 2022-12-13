@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import './index.css'
 import Profile from '../Profile'
+import Timer from '../Timer'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import hasGameStart from '../../utils/game'
 
 const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
   const [isOpponant, setIsOpponant] = useState(false)
-  const [showTimer, setShowTimer] = useState(false)
+  const [showJoin, setShowJoin] = useState(false)
   const [opponent, setOpponent] = useState('')
   const [error, setError] = useState('')
 
@@ -25,7 +26,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
           setIsOpponant(false)
           setError('We could not find any match, please try again!')
         }
-      }, 8000);
+      }, 21000);
       setIsOpponant(true)
     }
   }
@@ -36,7 +37,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
       addPlayers(data)
 
       if (hasGameStart(data.players)) {
-        setShowTimer(true)
+        setShowJoin(true)
         setIsOpponant(false)
         const opponent = data.players.find(p => p.username !== player.username)
         setOpponent(opponent.username)
@@ -63,9 +64,9 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
         </motion.button>
       </form>
       <br />
-      {isOpponant && <div>Waiting for opponent...</div>}
+      {isOpponant && <Timer />}
       {error && error}
-      {showTimer &&
+      {showJoin &&
         <motion.div
           animate={{ scale: 1.2 }}
           transition={{ repeat: 20, duration: 1.2 }}

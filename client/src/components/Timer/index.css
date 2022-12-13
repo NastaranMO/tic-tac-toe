@@ -1,11 +1,24 @@
 .timer-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  gap: 1em;
   z-index: 1;
+}
+.timer-circle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  border-radius: 50px;
+  font-size: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: #fbc562;
+  font-weight: bold;
+  border-color: red;
+  color: #333;
+}
+.timer-circle div {
+  text-align: center;
 }

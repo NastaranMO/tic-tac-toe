@@ -19,10 +19,10 @@ You can see my Tic Tac Toe online at: [Tic-Tac_Toe](https://tic-tac-toe-app.hero
 
 - Mobile first approach
 - Handling real-time connection between players with <b>Socket.io</b>
-- Managing states with React
-- Using Express for REST API endpoints
-- Adding animation and effects by Framer Motion
-- Calculate the winner or draw and store user info in the local storage for next usage
+- Managing states with <b>React</b>
+- Using Express for <b>REST</b> API endpoints
+- Adding animation and effects by <b>Framer Motion</b>
+- Calculate the winner or draw and store user info in the <b>local storage</b> for next usage
 - Implemented with React hooks
 - Fully modular
 
