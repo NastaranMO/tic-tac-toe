@@ -65,7 +65,6 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
       </form>
       <br />
       {isOpponant && <Timer />}
-      <div>Why?</div>
       {error && error}
       {showJoin &&
         <motion.div
