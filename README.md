@@ -17,12 +17,13 @@ You can see my Tic Tac Toe online at: [Tic-Tac_Toe](https://tic-tac-toe-app.hero
 ### Specifications
 
 - Mobile first approach
-- Calculate the winner or draw and store user info in the local storage for next usage
-- Handling backend and channels with Socket.io
+- Handling real-time connection between players
 - Managing states with React
-- Implemented with React HOOKS
-- Fully modular
+- Using Express for REST API endpoints
 - Adding animation and effects by Framer Motion
+- Calculate the winner or draw and store user info in the local storage for next usage
+- Implemented with React hooks
+- Fully modular
 
 ### Built with
 
