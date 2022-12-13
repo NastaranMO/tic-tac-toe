@@ -21,7 +21,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
       socket.emit('start_game', player.username);
       setTimeout(async () => {
         const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/user/${player.username}`);
-        if (data.players.length !== 2) {
+        if (data.players && data.players.length !== 2) {
           await axios.delete(`${process.env.REACT_APP_BASE_URL}/user/${player.username}`);
           setIsOpponant(false)
           setError('We could not find any match, please try again!')
