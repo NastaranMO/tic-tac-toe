@@ -7,12 +7,12 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 - [Built with](#built-with)
 - [How to run?](#how-to-run)
 
-## Overview
-![](https://github.com/NastaranMO/tic-tac-toe/blob/main/client/src/assests/Screen-Recording-2022-12-13-at-1.gif)
-
 ### Demo
 
 You can see my Tic Tac Toe online at: [Tic-Tac_Toe](https://tic-tac-toe-app.herokuapp.com)
+
+## Overview
+![](https://github.com/NastaranMO/tic-tac-toe/blob/main/client/src/assests/Screen-Recording-2022-12-13-at-1.gif)
 
 ### Specifications
 
