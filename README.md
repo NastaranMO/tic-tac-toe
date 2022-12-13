@@ -12,12 +12,13 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 You can see my Tic Tac Toe online at: [Tic-Tac_Toe](https://tic-tac-toe-app.herokuapp.com)
 
 ## Overview
+
 ![](https://github.com/NastaranMO/tic-tac-toe/blob/main/client/src/assests/Screen-Recording-2022-12-13-at-1.gif)
 
 ### Specifications
 
 - Mobile first approach
-- Handling real-time connection between players
+- Handling real-time connection between players with <b>Socket.io</b>
 - Managing states with React
 - Using Express for REST API endpoints
 - Adding animation and effects by Framer Motion

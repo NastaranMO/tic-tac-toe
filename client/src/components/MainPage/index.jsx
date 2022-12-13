@@ -59,7 +59,7 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
           whileHover={{ scale: !isOpponant ? 1.04 : 1 }}
           disabled={isOpponant ? true : false}
         >
-          {isOpponant ? 'Looking for apponant...' : 'Find a match'}
+          {isOpponant ? 'Looking for apponent...' : 'Find a match'}
         </motion.button>
       </form>
       <br />
