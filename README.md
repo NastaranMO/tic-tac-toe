@@ -14,7 +14,7 @@ You can see my Tic Tac Toe online at: [Tic-Tac_Toe](https://tic-tac-toe-app.hero
 
 ### Play with yourself
 
-If you want to play with yourself, open the [url](https://tic-tac-toe-app.herokuapp.com/) in two different browsers.
+If you want to play with yourself, open this [URL](https://tic-tac-toe-app.herokuapp.com/) in two different browsers.
 
 ## Overview
 
