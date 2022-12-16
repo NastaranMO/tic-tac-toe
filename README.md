@@ -3,6 +3,7 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 ## Table of contents
 
 - [Demo](#demo)
+- [Play with yourself](#play-with-yourself)
 - [Specifications](#my-process)
 - [Built with](#built-with)
 - [How to run?](#how-to-run)
@@ -10,6 +11,7 @@ I create this live multiplayer Tic Tac Toe app using Reactjs, Nodejs, Socket.io 
 ### Demo
 
 You can see my Tic Tac Toe online at: [Tic-Tac_Toe](https://tic-tac-toe-app.herokuapp.com)
+If you want to play with yourself, open the url in two different browsers.
 
 ## Overview
 
