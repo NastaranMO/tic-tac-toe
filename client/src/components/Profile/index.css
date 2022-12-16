@@ -67,6 +67,10 @@
   cursor: pointer;
 }
 
+.profile__text--paragraf a {
+  color: rgb(225, 212, 22);
+}
+
 @media (min-width: 1000px) {
   .profile {
     gap: 2em;

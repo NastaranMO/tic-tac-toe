@@ -52,29 +52,34 @@ const Main = ({ player, setPlayers, addPlayers, setIsGameBegin, socket }) => {
 
   return (
     <div className='box-container'>
-      <Profile player={player} />
-      <form onSubmit={joinRoomOnSubmitHandler}>
-        <motion.button
-          type="submit"
-          className='box-btn--match'
-          whileHover={{ scale: !isOpponant ? 1.04 : 1 }}
-          disabled={isOpponant ? true : false}
-        >
-          {isOpponant ? 'Looking for apponent...' : 'Find a match'}
-        </motion.button>
-      </form>
-      <br />
-      {isOpponant && <Timer />}
-      {error && error}
-      {showJoin &&
-        <motion.div
-          animate={{ scale: 1.2 }}
-          transition={{ repeat: 20, duration: 1.2 }}
-          className="timer"
-        >
-          <h2>Please waiting for join...</h2>
-          <p>Your opponent is <b>{opponent}</b></p>
-        </motion.div>}
+      <div>
+        <Profile player={player} />
+        <form onSubmit={joinRoomOnSubmitHandler}>
+          <motion.button
+            type="submit"
+            className='box-btn--match'
+            whileHover={{ scale: !isOpponant ? 1.04 : 1 }}
+            disabled={isOpponant ? true : false}
+          >
+            {isOpponant ? 'Looking for apponent...' : 'Find a match'}
+          </motion.button>
+        </form>
+        <br />
+        {isOpponant && <Timer />}
+        {error && error}
+        {showJoin &&
+          <motion.div
+            animate={{ scale: 1.2 }}
+            transition={{ repeat: 20, duration: 1.2 }}
+            className="timer"
+          >
+            <h2>Please waiting for join...</h2>
+            <p>Your opponent is <b>{opponent}</b></p>
+          </motion.div>}
+      </div>
+      <p className='profile__text--paragraf'>
+        👾 Do you want to play with yourself? open this <a href='https://tic-tac-toe-app.herokuapp.com/'>link</a> in two different browsers!
+      </p>
     </div>
   )
 }

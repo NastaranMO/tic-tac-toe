@@ -13,7 +13,7 @@ const Profile = ({ player }) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 2 }}
         >Welcome back, {player.username}!</motion.h1>
-        <p className='profile__text--paragraf'>This project designed and developed with Nodejs, Socket io and React.</p>
+        <p className='profile__text--paragraf'>This project designed and developed with Nodejs, Socket.io, Express and React.</p>
       </div>
       <div className='profile__boxItems'>
         <b className='profile-item profile-item--pink'>Total: {player.total}</b>
